@@ -13,7 +13,6 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "league/fractal": "^0.20.1",
-        "ext-http": "*",
         "ext-json": "*",
         "ext-curl": "*"
     },
