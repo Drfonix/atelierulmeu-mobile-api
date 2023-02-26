@@ -30,9 +30,9 @@ class SmsService
         $text = "Codul de autetificare in applicatia VehiGo este: " . $code;
 
         if($type === AuthRequest::TYPE_REGISTRATION) {
-            $text = "Codul de inregistrare in applicatia VehiGo este: " . $code;
+            $text = "Codul de inregistrare in aplicatia VehiGo este: " . $code;
         } else if($type === AuthRequest::TYPE_CHANGE) {
-            $text = "Codul penrtu a schimba numarul de telefon in applicatia VehiGo este: " . $code;
+            $text = "Codul pentru a schimba numarul de telefon in aplicatia VehiGo este: " . $code;
         }
         return $text;
     }
