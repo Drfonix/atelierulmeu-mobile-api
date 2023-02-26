@@ -1,0 +1,23 @@
+grumphp:
+  hooks_dir: ~
+  hooks_preset: local
+  stop_on_failure: true
+  ignore_unstaged_changes: false
+  hide_circumvention_tip: false
+  process_timeout: 60
+  ascii:
+    failed: grumphp-grumpy.txt
+    succeeded: grumphp-happy.txt
+  parallel:
+    enabled: true
+    max_workers: 32
+  fixer:
+    enabled: true
+    fix_by_default: false
+  environment:
+    files: []
+    variables: {}
+    paths: []
+  tasks: {}
+  testsuites: []
+  extensions: []
