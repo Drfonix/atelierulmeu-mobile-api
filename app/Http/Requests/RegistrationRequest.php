@@ -22,7 +22,7 @@ class RegistrationRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             "phone" => ["required", "string", new ValidPhoneNumber, "unique:users,phone"],

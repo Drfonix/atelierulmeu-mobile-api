@@ -98,6 +98,9 @@ class Handler extends ExceptionHandler
             ], JsonResponse::HTTP_NOT_FOUND);
         }
 
-        return parent::render($request, $exception);
+        $statusCode = $exception->getStatusCode() ?? JsonResponse::HTTP_NOT_FOUND;
+
+        return response()->json(["error" => $exception->getMessage()], $statusCode);
+//        return parent::render($request, $exception);
     }
 }

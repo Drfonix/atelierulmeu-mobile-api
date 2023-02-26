@@ -8,7 +8,7 @@ use App\Rules\ValidPhoneNumber;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class ValidationRequest extends FormRequest
+class ValidateCredentialChangeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -17,7 +17,7 @@ class ValidationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return (boolean)!$this->user();
+        return (boolean)$this->user();
     }
 
     /**
@@ -29,7 +29,7 @@ class ValidationRequest extends FormRequest
     {
         return [
             "code" => ["required", "string", new CodeExists],
-            "phone" => ["required", "string", new ValidPhoneNumber],
+            "phone" => ["required", "string", new ValidPhoneNumber, "unique:users,phone"],
             "type" => ["required", "string", Rule::in(AuthRequest::TYPES)]
         ];
     }

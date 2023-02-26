@@ -11,9 +11,9 @@ class LogoutRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return $this->user();
+        return (boolean)$this->user();
     }
 
     /**
