@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use JsonSerializable;
 
+/**
+ *
+ * Class UserResource
+ * @package App\Http\Resources
+ */
 class UserResource extends JsonResource
 {
     /**

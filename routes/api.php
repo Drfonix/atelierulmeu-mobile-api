@@ -18,7 +18,7 @@ Route::prefix('/v1')->group(function() {
     Route::group(['middleware' => ['cors', 'json.response']], static function () {
 
         // public routes
-        Route::post('/login', 'App\Http\Controllers\API\AuthController@login')->name('auth.login');
+//        Route::post('/login', 'App\Http\Controllers\API\AuthController@login')->name('auth.login');
         Route::post('/register','App\Http\Controllers\API\AuthController@register')->name('auth.register');
         Route::post('/validate','App\Http\Controllers\API\AuthController@validateCode')->name('auth.validate-code');
 
