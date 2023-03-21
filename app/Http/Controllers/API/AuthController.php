@@ -96,7 +96,11 @@ class AuthController extends Controller
     {
         $validated = $request->validated();
         $validated["uuid"] = Str::uuid();
-        $user = User::create($validated);
+        $user = User::query()->where("phone", "=", $validated["phone"])->first();
+        if(!$user) {
+            $user = User::create($validated);
+        }
+
         $authRequest = $this->checkOrCreateAuthRequest($validated["phone"], AuthRequest::TYPE_REGISTRATION, $user->id);
 
         $responseData = [

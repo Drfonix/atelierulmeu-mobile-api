@@ -25,7 +25,7 @@ class RegistrationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "phone" => ["required", "string", new ValidPhoneNumber, "unique:users,phone"],
+            "phone" => ["required", "string", new ValidPhoneNumber],
         ];
     }
 }

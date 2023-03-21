@@ -320,6 +320,45 @@
                 },
                 "type": "object"
             },
+            "PhoneChangeBody": {
+                "required": [
+                    "old_phone",
+                    "new_phone"
+                ],
+                "properties": {
+                    "old_phone": {
+                        "type": "string",
+                        "example": "0741600285"
+                    },
+                    "new_phone": {
+                        "type": "string",
+                        "example": "0748931362"
+                    }
+                },
+                "type": "object"
+            },
+            "PhoneChangeValidateBody": {
+                "required": [
+                    "phone",
+                    "code",
+                    "type"
+                ],
+                "properties": {
+                    "code": {
+                        "type": "string",
+                        "example": "rHYzV"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "example": "0741200358"
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "change"
+                    }
+                },
+                "type": "object"
+            },
             "RegisterResponse": {
                 "properties": {
                     "status": {
@@ -374,45 +413,6 @@
                 },
                 "type": "object"
             },
-            "PhoneChangeBody": {
-                "required": [
-                    "old_phone",
-                    "new_phone"
-                ],
-                "properties": {
-                    "old_phone": {
-                        "type": "string",
-                        "example": "0741600285"
-                    },
-                    "new_phone": {
-                        "type": "string",
-                        "example": "0748931362"
-                    }
-                },
-                "type": "object"
-            },
-            "PhoneChangeValidateBody": {
-                "required": [
-                    "phone",
-                    "code",
-                    "type"
-                ],
-                "properties": {
-                    "code": {
-                        "type": "string",
-                        "example": "rHYzV"
-                    },
-                    "phone": {
-                        "type": "string",
-                        "example": "0741200358"
-                    },
-                    "type": {
-                        "type": "string",
-                        "example": "change"
-                    }
-                },
-                "type": "object"
-            },
             "UpdateUserBody": {
                 "properties": {
                     "first_name": {
@@ -462,6 +462,14 @@
                     }
                 },
                 "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "api_key_security_example": {
+                "type": "apiKey",
+                "description": "A short description for security scheme",
+                "name": "Bearer",
+                "in": "header"
             }
         }
     }

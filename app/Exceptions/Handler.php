@@ -68,7 +68,8 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $exception)
     {
-        if($exception instanceof AuthenticationException || $request->expectsJson()) {
+//        dd($exception);
+        if($exception instanceof AuthenticationException) {
             return response()->json([
                 'error' => $exception->getMessage()
             ], JsonResponse::HTTP_UNAUTHORIZED);
@@ -102,7 +103,6 @@ class Handler extends ExceptionHandler
         if(property_exists($exception,"getStatusCode")) {
             $statusCode = $exception->getStatusCode();
         }
-
         return response()->json(["error" => $exception->getMessage()], $statusCode);
 //        return parent::render($request, $exception);
     }
