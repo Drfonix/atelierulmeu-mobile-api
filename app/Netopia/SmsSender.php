@@ -20,13 +20,12 @@ class SmsSender
     {
         if (config('app.env') === "local") {
             Log::channel('sms')->info("Skipping sms sending due to local env.");
-
-                return json_decode(json_encode([
+            return [
                     "error" => [
                         "code" => 0,
                         "message" => 'All good, but skipping actual sms sending due to local env.'
                     ]
-                ], JSON_THROW_ON_ERROR), false, 512, JSON_THROW_ON_ERROR);
+                ];
         }
 
         $nonce = time();
@@ -61,11 +60,11 @@ class SmsSender
         curl_setopt($ch, CURLOPT_USERPWD, $this->apiKey . ":" . $signature);
         $header = array();
         $header[] = 'Content-type: application/json';
-        $header[] = 'Content-length: ' . strlen(json_encode($data));
+        $header[] = 'Content-length: ' . strlen(json_encode($data, JSON_THROW_ON_ERROR));
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
         curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data, JSON_THROW_ON_ERROR));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_FAILONERROR, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);

@@ -7,8 +7,8 @@ use App\Models\User;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller as BaseController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @OA\Info(
@@ -21,7 +21,13 @@ use Illuminate\Routing\Controller as BaseController;
  * )
  * @OA\Server(
  *     url="/api/v1",
- * ),
+ * )
+ *
+ * @OA\Schema(type="object",schema="SuccessResponse",
+ * @OA\Property(property="status", type="string", example="success"),
+ * @OA\Property(property="message", type="string", example=""),
+ * @OA\Property(property="data", type="object")
+ * )
  */
 class Controller extends BaseController
 {
@@ -53,36 +59,12 @@ class Controller extends BaseController
         return $authRequest->fresh();
     }
 
-    protected function noUserRequestResponse()
-    {
-        return response()->json([
-            "status" => "error",
-            "message" => "User not found."
-        ],Response::HTTP_BAD_REQUEST);
-    }
-
-    protected function wrongUserOldPhoneResponse()
-    {
-        return response()->json([
-            "status" => "error",
-            "message" => "User old phone must match."
-        ],Response::HTTP_BAD_REQUEST);
-    }
-
-    protected function noAuthRequestResponse()
-    {
-        return response()->json([
-            "status" => "error",
-            "message" => "Code not found."
-        ],Response::HTTP_BAD_REQUEST);
-    }
-
     protected function getUserByPhoneOrThrowError(string $phone)
     {
         $user = User::query()->where(["phone" => $phone])->first();
         if(!$user) {
             throw new HttpResponseException(
-                $this->noUserRequestResponse()
+                $this->errorResponse([],"User not found")
             );
         }
         return $user;
@@ -93,7 +75,7 @@ class Controller extends BaseController
         $authRequest = AuthRequest::query()->where($params)->orderByDesc('created_at')->first();
         if(!$authRequest || $authRequest->confirmed) {
             throw new HttpResponseException(
-                $this->noAuthRequestResponse()
+                $this->errorResponse([],"Code not found")
             );
         }
         return $authRequest;
@@ -104,9 +86,25 @@ class Controller extends BaseController
         return AuthRequest::query()->where($params)->orderByDesc('created_at')->first();
     }
 
-    protected function successResponse()
+    protected function successResponse($data = [], string $message = '')
     {
-        return response()->json(["status" => "success"]);
+        $response = [
+            'status' => 'success',
+            'message' => $message,
+            'data' => $data
+        ];
+        return response()->json($response);
     }
+
+    protected function errorResponse($data = [], string $message = '', $statusCode = JsonResponse::HTTP_BAD_REQUEST)
+    {
+        $response = [
+            'status' => 'error',
+            'message' => $message,
+            'data' => $data
+        ];
+        return response()->json($response, $statusCode);
+    }
+
 
 }

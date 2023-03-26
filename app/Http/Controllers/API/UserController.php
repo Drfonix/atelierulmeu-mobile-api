@@ -32,7 +32,7 @@ class UserController extends Controller
      *     @OA\Response(
      *      response="200",
      *      description="The current user data response.",
-     *      @OA\JsonContent(ref="#/components/schemas/User"),
+     *      @OA\JsonContent(ref="#/components/schemas/UserResponse"),
      *     )
      * )
      * @param Request $request
@@ -42,7 +42,7 @@ class UserController extends Controller
     {
         $response = new UserResource($request->user());
 
-        return response()->json($response);
+        return $this->successResponse($response);
     }
 
     /**
@@ -60,7 +60,7 @@ class UserController extends Controller
      *     @OA\Response(
      *      response="200",
      *      description="The updated user data response.",
-     *      @OA\JsonContent(ref="#/components/schemas/User"),
+     *      @OA\JsonContent(ref="#/components/schemas/UserResponse")
      *     )
      * )
      * @param UserRequest $request
@@ -74,7 +74,7 @@ class UserController extends Controller
 
         $response = new UserResource($user->fresh());
 
-        return response()->json($response);
+        return $this->successResponse($response);
     }
 
     /**
@@ -87,9 +87,7 @@ class UserController extends Controller
      *     @OA\Response(
      *      response="200",
      *      description="The updated user data response.",
-     *      @OA\JsonContent(
-     *        @OA\Property(property="status", type="string", example="success"),
-     *     ),
+     *      @OA\JsonContent(ref="#/components/schemas/SuccessResponse")
      *     )
      * )
      *
@@ -102,6 +100,6 @@ class UserController extends Controller
         $user->tokens()->delete();
         $user->delete();
 
-        return response()->json(["status" => "success"]);
+        return $this->successResponse();
     }
 }

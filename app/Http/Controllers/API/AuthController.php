@@ -42,20 +42,34 @@ use Illuminate\Support\Str;
  * @OA\Schema(type="object",schema="RegisterResponse",
  * @OA\Property(property="status", type="string", example="success"),
  * @OA\Property(property="message", type="string", example="Code sent successfully."),
- * @OA\Property(property="code_type", type="string", example="registration"),
+ * @OA\Property(property="data", type="object",
+ *  @OA\Property(property="code_type", type="string", example="registration"),
+ * )
  * )
  *
  * @OA\Schema(type="object",schema="UserChangeResponse",
  * @OA\Property(property="status", type="string", example="success"),
  * @OA\Property(property="message", type="string", example="Code sent successfully."),
- * @OA\Property(property="code_type", type="string", example="change"),
+ * @OA\Property(property="data", type="object",
+ *  @OA\Property(property="code_type", type="string", example="change"),
+ * )
+ * )
+ *
+ * @OA\Schema(type="object",schema="UserResponse",
+ * @OA\Property(property="status", type="string", example="success"),
+ * @OA\Property(property="message", type="string", example=""),
+ * @OA\Property(property="data", type="object", ref="#/components/schemas/User")
  * )
  *
  * @OA\Schema(type="object",schema="ValidateResponse",
+ * @OA\Property(property="status", type="string", example="success"),
+ * @OA\Property(property="message", type="string", example="Code sent successfully."),
+ * @OA\Property(property="data", type="object",
  * @OA\Property(property="user", type="object", ref="#/components/schemas/User"),
  * @OA\Property(property="access_token", type="string", example="1|QU2sClAvTlQ1n1IFDyRsBV4pBvbd4utpy3Il59qK"),
  * @OA\Property(property="token_type", type="string", example="bearer"),
  * @OA\Property(property="expires_in", type="integer", example="1679836683"),
+ * )
  * )
  *
  *
@@ -103,14 +117,12 @@ class AuthController extends Controller
 
         $authRequest = $this->checkOrCreateAuthRequest($validated["phone"], AuthRequest::TYPE_REGISTRATION, $user->id);
 
-        $responseData = [
-            "status" => "success",
-            "message" => "Code sent successfully.",
+        $response = [
             "code_type" => AuthRequest::TYPE_REGISTRATION
         ];
         $this->smsService->sendTextMessage($authRequest);
 
-        return response()->json($responseData);
+        return $this->successResponse($response, "Code sent successfully");
     }
 
 
@@ -141,9 +153,7 @@ class AuthController extends Controller
      *     @OA\Response(
      *      response="200",
      *      description="Successfully logged out.",
-     *      @OA\JsonContent(
-     *        @OA\Property(property="status", type="string", example="success"),
-     *     ),
+     *      @OA\JsonContent(ref="#/components/schemas/SuccessResponse"),
      *     )
      * )
      * @param LogoutRequest $request
@@ -153,7 +163,7 @@ class AuthController extends Controller
     {
         $user = $request->user();
         if(!$user) {
-            return $this->noUserRequestResponse();
+            return $this->errorResponse([],"User not found");
         }
         $user->tokens()->delete();
 
@@ -188,7 +198,7 @@ class AuthController extends Controller
 
         $authRequest->update(["confirmed" => true, "user_id" => $user->id]);
 
-        return response()->json($this->validateCodeResponse($user));
+        return $this->successResponse($this->validateCodeResponse($user));
     }
 
     /**
@@ -206,7 +216,7 @@ class AuthController extends Controller
      *     @OA\Response(
      *      response="200",
      *      description="Returns updated user data.",
-     *      @OA\JsonContent(ref="#/components/schemas/User"),
+     *      @OA\JsonContent(ref="#/components/schemas/UserResponse"),
      *     )
      * )
      * @param ValidateCredentialChangeRequest $request
@@ -225,7 +235,7 @@ class AuthController extends Controller
 
         $response = new UserResource($user->fresh());
 
-        return response()->json($response);
+        return $this->successResponse($response);
     }
 
     /**
@@ -256,19 +266,15 @@ class AuthController extends Controller
         $user = $request->user();
         $validated = $request->validated();
         if($user->phone !== $validated["old_phone"]) {
-            return $this->wrongUserOldPhoneResponse();
+            return $this->errorResponse([],"User old phone must match");
         }
         $authRequest = $this->checkOrCreateAuthRequest($validated["new_phone"], AuthRequest::TYPE_CHANGE, $user->id);
-
-        $responseData = [
-            "status" => "success",
-            "message" => "Code sent successfully",
-            "code_type" => AuthRequest::TYPE_CHANGE,
-        ];
-
         $this->smsService->sendTextMessage($authRequest);
 
-        return response()->json($responseData);
+        $response = [
+            "code_type" => AuthRequest::TYPE_CHANGE,
+        ];
+        return $this->successResponse($response, "Code sent successfully");
     }
 
 

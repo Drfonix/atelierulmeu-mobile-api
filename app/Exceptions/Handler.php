@@ -68,42 +68,38 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $exception)
     {
-//        dd($exception);
+        $response = [
+            'status' => 'error',
+            'message' => "Bad request",
+            'data' => []
+        ];
+        $statusCode = JsonResponse::HTTP_BAD_REQUEST;
+
         if($exception instanceof AuthenticationException) {
-            return response()->json([
-                'error' => $exception->getMessage()
-            ], JsonResponse::HTTP_UNAUTHORIZED);
+            $statusCode = JsonResponse::HTTP_UNAUTHORIZED;
         }
 
         if ($exception instanceof MethodNotAllowedHttpException) {
-            return response()->json([
-                'error' => 'Method not allowed'
-            ], JsonResponse::HTTP_METHOD_NOT_ALLOWED);
+            $response['message'] = 'Method not allowed';
+            $statusCode = JsonResponse::HTTP_METHOD_NOT_ALLOWED;
         }
 
         if ($exception instanceof ValidationException && $request->isJson()) {
-            return response()->json([
-                'status' => 'error',
-                'message' => [
-                    'errors' => $exception->getMessage(),
-                    'fields' => $exception->validator->getMessageBag()->toArray()
-                ]
-            ], JsonResponse::HTTP_PRECONDITION_FAILED);
+            $response['data'] = $exception->validator->getMessageBag()->toArray();
+            $statusCode = JsonResponse::HTTP_PRECONDITION_FAILED;
         }
 
         // This will replace our 404 response with
         // a JSON response.
         if ($exception instanceof ModelNotFoundException) {
-            return response()->json([
-                'error' => 'Resource not found'
-            ], JsonResponse::HTTP_NOT_FOUND);
+            $response['message'] = 'Resource not found';
+            $statusCode = JsonResponse::HTTP_NOT_FOUND;
         }
 
-        $statusCode = JsonResponse::HTTP_NOT_FOUND;
         if(property_exists($exception,"getStatusCode")) {
             $statusCode = $exception->getStatusCode();
         }
-        return response()->json(["error" => $exception->getMessage()], $statusCode);
-//        return parent::render($request, $exception);
+
+        return response()->json($response, $statusCode);
     }
 }

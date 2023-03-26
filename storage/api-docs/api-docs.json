@@ -61,13 +61,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "properties": {
-                                        "status": {
-                                            "type": "string",
-                                            "example": "success"
-                                        }
-                                    },
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/SuccessResponse"
                                 }
                             }
                         }
@@ -138,7 +132,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/User"
+                                    "$ref": "#/components/schemas/UserResponse"
                                 }
                             }
                         }
@@ -203,7 +197,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/User"
+                                    "$ref": "#/components/schemas/UserResponse"
                                 }
                             }
                         }
@@ -239,7 +233,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/User"
+                                    "$ref": "#/components/schemas/UserResponse"
                                 }
                             }
                         }
@@ -264,13 +258,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "properties": {
-                                        "status": {
-                                            "type": "string",
-                                            "example": "success"
-                                        }
-                                    },
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/SuccessResponse"
                                 }
                             }
                         }
@@ -290,13 +278,20 @@
                 "required": [
                     "phone"
                 ],
-                "properties": {
-                    "phone": {
-                        "type": "string",
-                        "example": "0741234567"
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SuccessResponse"
+                    },
+                    {
+                        "properties": {
+                            "phone": {
+                                "type": "string",
+                                "example": "0741234567"
+                            }
+                        }
                     }
-                },
-                "type": "object"
+                ]
             },
             "ValidateBody": {
                 "required": [
@@ -304,38 +299,52 @@
                     "code",
                     "type"
                 ],
-                "properties": {
-                    "code": {
-                        "type": "string",
-                        "example": "glYyo"
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SuccessResponse"
                     },
-                    "phone": {
-                        "type": "string",
-                        "example": "0741234567"
-                    },
-                    "type": {
-                        "type": "string",
-                        "example": "registration"
+                    {
+                        "properties": {
+                            "code": {
+                                "type": "string",
+                                "example": "glYyo"
+                            },
+                            "phone": {
+                                "type": "string",
+                                "example": "0741234567"
+                            },
+                            "type": {
+                                "type": "string",
+                                "example": "registration"
+                            }
+                        }
                     }
-                },
-                "type": "object"
+                ]
             },
             "PhoneChangeBody": {
                 "required": [
                     "old_phone",
                     "new_phone"
                 ],
-                "properties": {
-                    "old_phone": {
-                        "type": "string",
-                        "example": "0741600285"
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SuccessResponse"
                     },
-                    "new_phone": {
-                        "type": "string",
-                        "example": "0748931362"
+                    {
+                        "properties": {
+                            "old_phone": {
+                                "type": "string",
+                                "example": "0741600285"
+                            },
+                            "new_phone": {
+                                "type": "string",
+                                "example": "0748931362"
+                            }
+                        }
                     }
-                },
-                "type": "object"
+                ]
             },
             "PhoneChangeValidateBody": {
                 "required": [
@@ -343,40 +352,179 @@
                     "code",
                     "type"
                 ],
-                "properties": {
-                    "code": {
-                        "type": "string",
-                        "example": "rHYzV"
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SuccessResponse"
                     },
-                    "phone": {
-                        "type": "string",
-                        "example": "0741200358"
-                    },
-                    "type": {
-                        "type": "string",
-                        "example": "change"
+                    {
+                        "properties": {
+                            "code": {
+                                "type": "string",
+                                "example": "rHYzV"
+                            },
+                            "phone": {
+                                "type": "string",
+                                "example": "0741200358"
+                            },
+                            "type": {
+                                "type": "string",
+                                "example": "change"
+                            }
+                        }
                     }
-                },
-                "type": "object"
+                ]
             },
             "RegisterResponse": {
-                "properties": {
-                    "status": {
-                        "type": "string",
-                        "example": "success"
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SuccessResponse"
                     },
-                    "message": {
-                        "type": "string",
-                        "example": "Code sent successfully."
-                    },
-                    "code_type": {
-                        "type": "string",
-                        "example": "registration"
+                    {
+                        "properties": {
+                            "status": {
+                                "type": "string",
+                                "example": "success"
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "Code sent successfully."
+                            },
+                            "data": {
+                                "properties": {
+                                    "code_type": {
+                                        "type": "string",
+                                        "example": "registration"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
                     }
-                },
-                "type": "object"
+                ]
             },
             "UserChangeResponse": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SuccessResponse"
+                    },
+                    {
+                        "properties": {
+                            "status": {
+                                "type": "string",
+                                "example": "success"
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "Code sent successfully."
+                            },
+                            "data": {
+                                "properties": {
+                                    "code_type": {
+                                        "type": "string",
+                                        "example": "change"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                ]
+            },
+            "UserResponse": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SuccessResponse"
+                    },
+                    {
+                        "properties": {
+                            "status": {
+                                "type": "string",
+                                "example": "success"
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": ""
+                            },
+                            "data": {
+                                "$ref": "#/components/schemas/User"
+                            }
+                        }
+                    }
+                ]
+            },
+            "ValidateResponse": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SuccessResponse"
+                    },
+                    {
+                        "properties": {
+                            "status": {
+                                "type": "string",
+                                "example": "success"
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "Code sent successfully."
+                            },
+                            "data": {
+                                "properties": {
+                                    "user": {
+                                        "$ref": "#/components/schemas/User"
+                                    },
+                                    "access_token": {
+                                        "type": "string",
+                                        "example": "1|QU2sClAvTlQ1n1IFDyRsBV4pBvbd4utpy3Il59qK"
+                                    },
+                                    "token_type": {
+                                        "type": "string",
+                                        "example": "bearer"
+                                    },
+                                    "expires_in": {
+                                        "type": "integer",
+                                        "example": "1679836683"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                ]
+            },
+            "UpdateUserBody": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SuccessResponse"
+                    },
+                    {
+                        "properties": {
+                            "first_name": {
+                                "type": "string",
+                                "example": "George"
+                            },
+                            "last_name": {
+                                "type": "string",
+                                "example": "Tepes"
+                            },
+                            "username": {
+                                "type": "string",
+                                "example": "g_tepes"
+                            },
+                            "email": {
+                                "type": "string",
+                                "example": "tepes@vlad.ro"
+                            }
+                        }
+                    }
+                ]
+            },
+            "SuccessResponse": {
                 "properties": {
                     "status": {
                         "type": "string",
@@ -384,52 +532,10 @@
                     },
                     "message": {
                         "type": "string",
-                        "example": "Code sent successfully."
+                        "example": ""
                     },
-                    "code_type": {
-                        "type": "string",
-                        "example": "change"
-                    }
-                },
-                "type": "object"
-            },
-            "ValidateResponse": {
-                "properties": {
-                    "user": {
-                        "$ref": "#/components/schemas/User"
-                    },
-                    "access_token": {
-                        "type": "string",
-                        "example": "1|QU2sClAvTlQ1n1IFDyRsBV4pBvbd4utpy3Il59qK"
-                    },
-                    "token_type": {
-                        "type": "string",
-                        "example": "bearer"
-                    },
-                    "expires_in": {
-                        "type": "integer",
-                        "example": "1679836683"
-                    }
-                },
-                "type": "object"
-            },
-            "UpdateUserBody": {
-                "properties": {
-                    "first_name": {
-                        "type": "string",
-                        "example": "George"
-                    },
-                    "last_name": {
-                        "type": "string",
-                        "example": "Tepes"
-                    },
-                    "username": {
-                        "type": "string",
-                        "example": "g_tepes"
-                    },
-                    "email": {
-                        "type": "string",
-                        "example": "tepes@vlad.ro"
+                    "data": {
+                        "type": "object"
                     }
                 },
                 "type": "object"
