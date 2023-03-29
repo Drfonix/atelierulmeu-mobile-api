@@ -28,7 +28,7 @@ class UserController extends Controller
      *     summary="Get user data",
      *     description="Returns the current user data.",
      *     tags={"user"},
-     *     security={{"bearer":{}}},
+     *     security={{"bearer_Auth":{}}},
      *     @OA\Response(
      *      response="200",
      *      description="The current user data response.",
@@ -51,7 +51,7 @@ class UserController extends Controller
      *     summary="Update user data",
      *     description="Returns the updated user data.",
      *     tags={"user"},
-     *     security={{"bearer":{}}},
+     *     security={{"bearer_Auth":{}}},
      *     @OA\RequestBody(
      *       required=true,
      *       description="User fillable properties",
@@ -83,7 +83,7 @@ class UserController extends Controller
      *     summary="Delete user data",
      *     description="Returns a success meassge from delete user process..",
      *     tags={"user"},
-     *     security={{"bearer":{}}},
+     *     security={{"bearer_Auth":{}}},
      *     @OA\Response(
      *      response="200",
      *      description="The updated user data response.",

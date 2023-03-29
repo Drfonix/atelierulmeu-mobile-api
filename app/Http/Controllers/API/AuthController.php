@@ -149,7 +149,7 @@ class AuthController extends Controller
      *     summary="Log out",
      *     description="Log out user from app. Delete the acces token.",
      *     tags={"auth"},
-     *     security={{"bearer":{}}},
+     *     security={{"bearer_Auth":{}}},
      *     @OA\Response(
      *      response="200",
      *      description="Successfully logged out.",
@@ -207,7 +207,7 @@ class AuthController extends Controller
      *     summary="Validate the new phone number.",
      *     description="Validates the new user phone number with code sent to phone.",
      *     tags={"user"},
-     *     security={{"bearer":{}}},
+     *     security={{"bearer_Auth":{}}},
      *     @OA\RequestBody(
      *       required=true,
      *       description="Sends the code, phone number and code type for validation.",
@@ -244,7 +244,7 @@ class AuthController extends Controller
      *     summary="Change user phone number.",
      *     description="Requests a code for change to the new number.",
      *     tags={"user"},
-     *     security={{"bearer":{}}},
+     *     security={{"bearer_Auth":{}}},
      *     @OA\RequestBody(
      *       required=true,
      *       description="Pass the old and new phone number for validation.",

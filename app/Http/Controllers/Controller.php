@@ -22,6 +22,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  * @OA\Server(
  *     url="/api/v1",
  * )
+// *   @OAS\SecurityScheme(securityScheme="bearerAuth",type="http",scheme="bearer", in="header")
+ *
  *
  * @OA\Schema(type="object",schema="SuccessResponse",
  * @OA\Property(property="status", type="string", example="success"),
