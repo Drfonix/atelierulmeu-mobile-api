@@ -30,6 +30,15 @@ Route::prefix('/v1')->group(function() {
             Route::delete('/user', 'App\Http\Controllers\API\UserController@deleteUser')->name('user.current-delete');
             Route::post('/user/change', 'App\Http\Controllers\API\AuthController@changeCredentials')->name('user.current-change');
             Route::post('/user/change/validate', 'App\Http\Controllers\API\AuthController@validateNewCredentials')->name('user.change-validate');
+            Route::get('/refresh-token', 'App\Http\Controllers\API\AuthController@getRefreshToken')->name('user.refresh-token');
+
+            Route::get('/information', 'App\Http\Controllers\API\GeneralController@getInformation')->name('general.information');
+
+            Route::get('/cars/{car}', 'App\Http\Controllers\API\CarController@getCarById')->name('car.car-by-id');
+            Route::get('/cars', 'App\Http\Controllers\API\CarController@getUserCars')->name('car.user-cars');
+            Route::post('/cars', 'App\Http\Controllers\API\CarController@createUserCar')->name('car.create');
+            Route::put('/cars/{car}', 'App\Http\Controllers\API\CarController@updateUserCar')->name('car.update');
+            Route::delete('/cars/{car}', 'App\Http\Controllers\API\CarController@deleteUserCar')->name('car.delete');
         });
     });
 });

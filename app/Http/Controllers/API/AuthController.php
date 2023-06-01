@@ -13,6 +13,7 @@ use App\Http\Resources\UserResource;
 use App\Models\AuthRequest;
 use App\Models\User;
 use App\Services\SmsService;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
@@ -199,6 +200,29 @@ class AuthController extends Controller
         $authRequest->update(["confirmed" => true, "user_id" => $user->id]);
 
         return $this->successResponse($this->validateCodeResponse($user));
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/refresh-token",
+     *     summary="Refresh token",
+     *     description="Delete the current user token and returns the new one",
+     *     tags={"auth"},
+     *     @OA\Response(
+     *      response="200",
+     *      description="The user data and acces token.(Bearer)",
+     *      @OA\JsonContent(ref="#/components/schemas/ValidateResponse"),
+     *     )
+     * )
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getRefreshToken(Request $request): JsonResponse
+    {
+        $user = $request->user();
+        $user->tokens()->delete();
+
+        return $this->successResponse($this->validateCodeResponse($user), "Token refresh done");
     }
 
     /**

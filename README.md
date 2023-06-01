@@ -6,6 +6,9 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
+## Commands to run
+ - import car brands `php artisan set-static-data --type=car-make --file-name=car-brands.xlsx`
+ - import car brand models `php artisan set-static-data --type=car-model --file-name=car-models.xlsx`
 
 ## About Laravel
 

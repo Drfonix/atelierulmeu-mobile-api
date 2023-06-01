@@ -107,6 +107,28 @@
                 }
             }
         },
+        "/refresh-token": {
+            "get": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Refresh token",
+                "description": "Delete the current user token and returns the new one",
+                "operationId": "d5eee1fc446104f5de5027a4337f398d",
+                "responses": {
+                    "200": {
+                        "description": "The user data and acces token.(Bearer)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidateResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/user/change/validate": {
             "post": {
                 "tags": [
@@ -171,6 +193,220 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/UserChangeResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            }
+        },
+        "/cars/{id}": {
+            "get": {
+                "tags": [
+                    "car"
+                ],
+                "summary": "Get user car by id",
+                "description": "Returns the car detailed data",
+                "operationId": "e8cc4357610811cddead04829ec723f9",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of car",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Car response by car id.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CarResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "car"
+                ],
+                "summary": "Update the current car",
+                "description": "Updates the user car by id",
+                "operationId": "81779f5cda2fd8b16e677b7584ae243e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of car",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Car fillable properties",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CarBody"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated car response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CarResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "car"
+                ],
+                "summary": "Delete the user car",
+                "description": "Deletes the user car by id",
+                "operationId": "2358187c3e9f97486628f50543ec541a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of car",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete car response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DeleteCarResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            }
+        },
+        "/cars": {
+            "get": {
+                "tags": [
+                    "car"
+                ],
+                "summary": "Get user cars",
+                "description": "Returns the user related cars",
+                "operationId": "4abf8c869538cb6e4644537ba31a6aad",
+                "responses": {
+                    "200": {
+                        "description": "The user cars response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserCarsResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "car"
+                ],
+                "summary": "Create new user car",
+                "description": "Creates a new user related car",
+                "operationId": "eefaab256ebfc761559e49bda6467817",
+                "requestBody": {
+                    "description": "Car fillable properties",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CarBody"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Car response by car id.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CarResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            }
+        },
+        "/information": {
+            "get": {
+                "tags": [
+                    "general"
+                ],
+                "summary": "Get constant informations",
+                "description": "Returns a set of data to user in app",
+                "operationId": "6624f47205532cd2b6302ce83ee9e29b",
+                "responses": {
+                    "200": {
+                        "description": "Returns the constants informations",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GeneralInfoResponse"
                                 }
                             }
                         }
@@ -496,6 +732,241 @@
                     }
                 ]
             },
+            "CarBody": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SuccessResponse"
+                    },
+                    {
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "example": "My Car"
+                            },
+                            "category": {
+                                "type": "string",
+                                "example": "Autoturism/Automobil mixt"
+                            },
+                            "subcategory": {
+                                "type": "string",
+                                "example": "Autoturism"
+                            },
+                            "registration_type": {
+                                "type": "string",
+                                "example": "Inmatriculat"
+                            },
+                            "fuel_type": {
+                                "type": "string",
+                                "example": "Motorina"
+                            },
+                            "vin_number": {
+                                "type": "string",
+                                "example": "WBAAP71111GL33030"
+                            },
+                            "make": {
+                                "type": "string",
+                                "example": "BMW"
+                            },
+                            "model": {
+                                "type": "string",
+                                "example": "Seria 3"
+                            },
+                            "manufacture_year": {
+                                "type": "string",
+                                "example": "2002"
+                            },
+                            "tyre_size": {
+                                "type": "string",
+                                "example": []
+                            },
+                            "motor_power": {
+                                "type": "string",
+                                "example": "110"
+                            },
+                            "cylinder_capacity": {
+                                "type": "string",
+                                "example": "1995"
+                            },
+                            "number_places": {
+                                "type": "string",
+                                "example": "5"
+                            },
+                            "max_per_mass": {
+                                "type": "string",
+                                "example": "1550"
+                            },
+                            "civ_number": {
+                                "type": "string",
+                                "example": "K884163"
+                            },
+                            "description": {
+                                "type": "string",
+                                "example": "My favorite car"
+                            }
+                        }
+                    }
+                ]
+            },
+            "CarResponse": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SuccessResponse"
+                    },
+                    {
+                        "properties": {
+                            "status": {
+                                "type": "string",
+                                "example": "success"
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": ""
+                            },
+                            "data": {
+                                "$ref": "#/components/schemas/Car"
+                            }
+                        }
+                    }
+                ]
+            },
+            "DeleteCarResponse": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SuccessResponse"
+                    },
+                    {
+                        "properties": {
+                            "status": {
+                                "type": "string",
+                                "example": "success"
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": ""
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": []
+                            }
+                        }
+                    }
+                ]
+            },
+            "UserCarsResponse": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SuccessResponse"
+                    },
+                    {
+                        "properties": {
+                            "status": {
+                                "type": "string",
+                                "example": "success"
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": ""
+                            },
+                            "data": {
+                                "type": "array",
+                                "items": {
+                                    "properties": {
+                                        "car": {
+                                            "$ref": "#/components/schemas/Car"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                ]
+            },
+            "GeneralInfoResponse": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SuccessResponse"
+                    },
+                    {
+                        "properties": {
+                            "status": {
+                                "type": "string",
+                                "example": "success"
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "Constants information"
+                            },
+                            "data": {
+                                "properties": {
+                                    "car_categories": {
+                                        "type": "array",
+                                        "items": {},
+                                        "example": [
+                                            "Autoturism",
+                                            "Autotractor"
+                                        ]
+                                    },
+                                    "car_sub_categories": {
+                                        "type": "array",
+                                        "items": {},
+                                        "example": [
+                                            "Automobil mixt",
+                                            "SUV"
+                                        ]
+                                    },
+                                    "car_registration_types": {
+                                        "type": "array",
+                                        "items": {},
+                                        "example": [
+                                            "Inmatriculat",
+                                            "Inregistrat"
+                                        ]
+                                    },
+                                    "car_fuel_types": {
+                                        "type": "array",
+                                        "items": {},
+                                        "example": [
+                                            "Benzina",
+                                            "Motorina"
+                                        ]
+                                    },
+                                    "car_makes": {
+                                        "type": "array",
+                                        "items": {},
+                                        "example": [
+                                            "Audi",
+                                            "BMW"
+                                        ]
+                                    },
+                                    "car_models": {
+                                        "type": "array",
+                                        "items": {},
+                                        "example": [
+                                            "A6",
+                                            "Seria 3"
+                                        ]
+                                    },
+                                    "notification_types": {
+                                        "type": "array",
+                                        "items": {},
+                                        "example": [
+                                            "ITP",
+                                            "RCA"
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                ]
+            },
             "UpdateUserBody": {
                 "type": "object",
                 "allOf": [
@@ -536,6 +1007,79 @@
                     },
                     "data": {
                         "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "Car": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "My Car"
+                    },
+                    "category": {
+                        "type": "string",
+                        "example": "Autoturism/Automobil mixt"
+                    },
+                    "subcategory": {
+                        "type": "string",
+                        "example": "Autoturism"
+                    },
+                    "registration_type": {
+                        "type": "string",
+                        "example": "Inmatriculat"
+                    },
+                    "fuel_type": {
+                        "type": "string",
+                        "example": "Motorina"
+                    },
+                    "vin_number": {
+                        "type": "string",
+                        "example": "WBAAP71111GL33030"
+                    },
+                    "make": {
+                        "type": "string",
+                        "example": "BMW"
+                    },
+                    "model": {
+                        "type": "string",
+                        "example": "Seria 3"
+                    },
+                    "manufacture_year": {
+                        "type": "string",
+                        "example": "2002"
+                    },
+                    "tyre_size": {
+                        "type": "string",
+                        "example": []
+                    },
+                    "motor_power": {
+                        "type": "string",
+                        "example": "110"
+                    },
+                    "cylinder_capacity": {
+                        "type": "string",
+                        "example": "1995"
+                    },
+                    "number_places": {
+                        "type": "string",
+                        "example": "5"
+                    },
+                    "max_per_mass": {
+                        "type": "string",
+                        "example": "1550"
+                    },
+                    "civ_number": {
+                        "type": "string",
+                        "example": "K884163"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "My favorite car"
                     }
                 },
                 "type": "object"

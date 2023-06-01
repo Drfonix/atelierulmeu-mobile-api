@@ -2,12 +2,14 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -75,8 +77,9 @@ class Handler extends ExceptionHandler
         ];
         $statusCode = JsonResponse::HTTP_BAD_REQUEST;
 
-        if($exception instanceof AuthenticationException) {
+        if($exception instanceof AuthenticationException || $exception instanceof AuthorizationException) {
             $statusCode = JsonResponse::HTTP_UNAUTHORIZED;
+            $response['message'] = 'Unauthorized';
         }
 
         if ($exception instanceof MethodNotAllowedHttpException) {
@@ -91,7 +94,7 @@ class Handler extends ExceptionHandler
 
         // This will replace our 404 response with
         // a JSON response.
-        if ($exception instanceof ModelNotFoundException) {
+        if ($exception instanceof ModelNotFoundException || $exception instanceof NotFoundHttpException) {
             $response['message'] = 'Resource not found';
             $statusCode = JsonResponse::HTTP_NOT_FOUND;
         }

@@ -20,12 +20,14 @@ class SmsSender
     {
         if (config('app.env') === "local") {
             Log::channel('sms')->info("Skipping sms sending due to local env.");
-            return [
-                    "error" => [
-                        "code" => 0,
-                        "message" => 'All good, but skipping actual sms sending due to local env.'
-                    ]
-                ];
+            $resp =  [
+                "error" => [
+                "code" => 0,
+                "message" => 'All good, but skipping actual sms sending due to local env.'
+                ]
+            ];
+
+            return json_decode($resp, true, 512, JSON_THROW_ON_ERROR);
         }
 
         $nonce = time();
