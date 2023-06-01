@@ -92,7 +92,7 @@ class AuthController extends Controller
      *     path="/register",
      *     summary="Register or log in",
      *     description="Register or log in by users phone number",
-     *     tags={"auth"},
+     *      tags={"Auth"},
      *     @OA\RequestBody(
      *       required=true,
      *       description="Pass phone number",
@@ -149,7 +149,7 @@ class AuthController extends Controller
      *     path="/logout",
      *     summary="Log out",
      *     description="Log out user from app. Delete the acces token.",
-     *     tags={"auth"},
+     *      tags={"Auth"},
      *     security={{"bearer_Auth":{}}},
      *     @OA\Response(
      *      response="200",
@@ -176,7 +176,7 @@ class AuthController extends Controller
      *     path="/validate",
      *     summary="Validate code",
      *     description="Validate the code sent to the users phone number.",
-     *     tags={"auth"},
+     *      tags={"Auth"},
      *     @OA\RequestBody(
      *       required=true,
      *       description="Pass the code, phone number and code type.",
@@ -207,7 +207,7 @@ class AuthController extends Controller
      *     path="/refresh-token",
      *     summary="Refresh token",
      *     description="Delete the current user token and returns the new one",
-     *     tags={"auth"},
+     *      tags={"Auth"},
      *     @OA\Response(
      *      response="200",
      *      description="The user data and acces token.(Bearer)",
@@ -230,7 +230,7 @@ class AuthController extends Controller
      *     path="/user/change/validate",
      *     summary="Validate the new phone number.",
      *     description="Validates the new user phone number with code sent to phone.",
-     *     tags={"user"},
+     *      tags={"User"},
      *     security={{"bearer_Auth":{}}},
      *     @OA\RequestBody(
      *       required=true,
@@ -267,7 +267,7 @@ class AuthController extends Controller
      *     path="/user/change",
      *     summary="Change user phone number.",
      *     description="Requests a code for change to the new number.",
-     *     tags={"user"},
+     *      tags={"User"},
      *     security={{"bearer_Auth":{}}},
      *     @OA\RequestBody(
      *       required=true,

@@ -36,7 +36,7 @@ class GeneralController extends Controller
      *     path="/information",
      *     summary="Get constant informations",
      *     description="Returns a set of data to user in app",
-     *     tags={"general"},
+     *      tags={"General"},
      *     security={{"bearer_Auth":{}}},
      *     @OA\Response(
      *      response="200",

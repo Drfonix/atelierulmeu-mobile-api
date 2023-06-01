@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 /**
  *
  * @OA\Schema(type="object",schema="CarBody",
+ * required={"name"},
  * @OA\Property(property="name",type="string",example="My Car"),
  * @OA\Property(property="category",type="string",example="Autoturism/Automobil mixt"),
  * @OA\Property(property="subcategory",type="string",example="Autoturism"),
@@ -61,7 +62,7 @@ class CarController extends Controller
      *     path="/cars/{id}",
      *     summary="Get user car by id",
      *     description="Returns the car detailed data",
-     *     tags={"car"},
+     *      tags={"Car"},
      *     security={{"bearer_Auth":{}}},
      *     @OA\Parameter(
      *         name="id",
@@ -92,7 +93,7 @@ class CarController extends Controller
      *     path="/cars",
      *     summary="Get user cars",
      *     description="Returns the user related cars",
-     *     tags={"car"},
+     *      tags={"Car"},
      *     security={{"bearer_Auth":{}}},
      *     @OA\Response(
      *      response="200",
@@ -117,7 +118,7 @@ class CarController extends Controller
      *     path="/cars",
      *     summary="Create new user car",
      *     description="Creates a new user related car",
-     *     tags={"car"},
+     *      tags={"Car"},
      *     security={{"bearer_Auth":{}}},
      *     @OA\RequestBody(
      *       required=true,
@@ -151,7 +152,7 @@ class CarController extends Controller
      *     path="/cars/{id}",
      *     summary="Update the current car",
      *     description="Updates the user car by id",
-     *     tags={"car"},
+     *      tags={"Car"},
      *     security={{"bearer_Auth":{}}},
      *     @OA\Parameter(
      *         name="id",
@@ -195,7 +196,7 @@ class CarController extends Controller
      *     path="/cars/{id}",
      *     summary="Delete the user car",
      *     description="Deletes the user car by id",
-     *     tags={"car"},
+     *      tags={"Car"},
      *     security={{"bearer_Auth":{}}},
      *     @OA\Parameter(
      *         name="id",

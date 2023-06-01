@@ -17,7 +17,7 @@
         "/register": {
             "post": {
                 "tags": [
-                    "auth"
+                    "Auth"
                 ],
                 "summary": "Register or log in",
                 "description": "Register or log in by users phone number",
@@ -50,7 +50,7 @@
         "/logout": {
             "post": {
                 "tags": [
-                    "auth"
+                    "Auth"
                 ],
                 "summary": "Log out",
                 "description": "Log out user from app. Delete the acces token.",
@@ -77,7 +77,7 @@
         "/validate": {
             "post": {
                 "tags": [
-                    "auth"
+                    "Auth"
                 ],
                 "summary": "Validate code",
                 "description": "Validate the code sent to the users phone number.",
@@ -110,7 +110,7 @@
         "/refresh-token": {
             "get": {
                 "tags": [
-                    "auth"
+                    "Auth"
                 ],
                 "summary": "Refresh token",
                 "description": "Delete the current user token and returns the new one",
@@ -132,7 +132,7 @@
         "/user/change/validate": {
             "post": {
                 "tags": [
-                    "user"
+                    "User"
                 ],
                 "summary": "Validate the new phone number.",
                 "description": "Validates the new user phone number with code sent to phone.",
@@ -170,7 +170,7 @@
         "/user/change": {
             "post": {
                 "tags": [
-                    "user"
+                    "User"
                 ],
                 "summary": "Change user phone number.",
                 "description": "Requests a code for change to the new number.",
@@ -208,7 +208,7 @@
         "/cars/{id}": {
             "get": {
                 "tags": [
-                    "car"
+                    "Car"
                 ],
                 "summary": "Get user car by id",
                 "description": "Returns the car detailed data",
@@ -245,7 +245,7 @@
             },
             "put": {
                 "tags": [
-                    "car"
+                    "Car"
                 ],
                 "summary": "Update the current car",
                 "description": "Updates the user car by id",
@@ -293,7 +293,7 @@
             },
             "delete": {
                 "tags": [
-                    "car"
+                    "Car"
                 ],
                 "summary": "Delete the user car",
                 "description": "Deletes the user car by id",
@@ -332,7 +332,7 @@
         "/cars": {
             "get": {
                 "tags": [
-                    "car"
+                    "Car"
                 ],
                 "summary": "Get user cars",
                 "description": "Returns the user related cars",
@@ -357,7 +357,7 @@
             },
             "post": {
                 "tags": [
-                    "car"
+                    "Car"
                 ],
                 "summary": "Create new user car",
                 "description": "Creates a new user related car",
@@ -395,7 +395,7 @@
         "/information": {
             "get": {
                 "tags": [
-                    "general"
+                    "General"
                 ],
                 "summary": "Get constant informations",
                 "description": "Returns a set of data to user in app",
@@ -422,7 +422,7 @@
         "/user": {
             "get": {
                 "tags": [
-                    "user"
+                    "User"
                 ],
                 "summary": "Get user data",
                 "description": "Returns the current user data.",
@@ -447,7 +447,7 @@
             },
             "put": {
                 "tags": [
-                    "user"
+                    "User"
                 ],
                 "summary": "Update user data",
                 "description": "Returns the updated user data.",
@@ -483,7 +483,7 @@
             },
             "delete": {
                 "tags": [
-                    "user"
+                    "User"
                 ],
                 "summary": "Delete user data",
                 "description": "Returns a success meassge from delete user process..",
@@ -733,6 +733,9 @@
                 ]
             },
             "CarBody": {
+                "required": [
+                    "name"
+                ],
                 "type": "object",
                 "allOf": [
                     {
