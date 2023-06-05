@@ -22,13 +22,13 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  * @OA\Server(
  *     url="/api/v1",
  * )
-// *   @OAS\SecurityScheme(securityScheme="bearerAuth",type="http",scheme="bearer", in="header")
+ *   @OAS\SecurityScheme(securityScheme="bearerAuth",type="http",scheme="bearer", in="header")
  *
  *
  * @OA\Schema(type="object",schema="SuccessResponse",
  * @OA\Property(property="status", type="string", example="success"),
  * @OA\Property(property="message", type="string", example=""),
- * @OA\Property(property="data", type="object")
+ * @OA\Property(property="data", type="object"),
  * )
  */
 class Controller extends BaseController
@@ -108,5 +108,11 @@ class Controller extends BaseController
         return response()->json($response, $statusCode);
     }
 
+    protected function checkResourceOwner($resource, User $user)
+    {
+        if($resource && $resource->user_id !== $user->id) {
+            return  $this->errorResponse([], "You are not the resource owner");
+        }
+    }
 
 }

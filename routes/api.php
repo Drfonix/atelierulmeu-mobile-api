@@ -39,6 +39,12 @@ Route::prefix('/v1')->group(function() {
             Route::post('/cars', 'App\Http\Controllers\API\CarController@createUserCar')->name('car.create');
             Route::put('/cars/{car}', 'App\Http\Controllers\API\CarController@updateUserCar')->name('car.update');
             Route::delete('/cars/{car}', 'App\Http\Controllers\API\CarController@deleteUserCar')->name('car.delete');
+
+            Route::get('/notifications/{notification}', 'App\Http\Controllers\API\NotificationController@getNotificationById')->name('notification.notification-by-id');
+            Route::get('/notifications', 'App\Http\Controllers\API\NotificationController@getUserNotifications')->name('notification.user-notifications');
+            Route::post('/notifications', 'App\Http\Controllers\API\NotificationController@createUserNotification')->name('notification.create');
+            Route::put('/notifications/{notification}', 'App\Http\Controllers\API\NotificationController@updateUserNotification')->name('notification.update');
+            Route::delete('/notifications/{notification}', 'App\Http\Controllers\API\NotificationController@deleteUserNotification')->name('notification.delete');
         });
     });
 });

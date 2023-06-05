@@ -419,6 +419,193 @@
                 ]
             }
         },
+        "/notifications/{id}": {
+            "get": {
+                "tags": [
+                    "Notification"
+                ],
+                "summary": "Get user notification by id",
+                "description": "Returns the notification detailed data",
+                "operationId": "9cd1492cfb2e03e7ca29dc21ebbce9f6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of notification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Notification response by notification id.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotificationResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Notification"
+                ],
+                "summary": "Update the current notification",
+                "description": "Updates the user notification by id",
+                "operationId": "151388cc957a8aa19bc3aba10b7fe9ca",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of notification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Notification fillable properties",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NotificationBody"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated notification response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotificationResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Notification"
+                ],
+                "summary": "Delete the user notification",
+                "description": "Deletes the user notification by id",
+                "operationId": "c45b0ae13c892255f8acb67fb481ac8f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of notification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete notification response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DeleteNotificationResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            }
+        },
+        "/notifications": {
+            "get": {
+                "tags": [
+                    "Notification"
+                ],
+                "summary": "Get user notifications",
+                "description": "Returns the user related notifications",
+                "operationId": "4c4c62ede38b4d58cdad5ae89a516a8a",
+                "responses": {
+                    "200": {
+                        "description": "The user notifications response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserNotificationsResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Notification"
+                ],
+                "summary": "Create new user notification",
+                "description": "Creates a new user related notification",
+                "operationId": "dfe9686351c9782afdd01984f1e4ad15",
+                "requestBody": {
+                    "description": "Notification fillable properties",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NotificationBody"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Notification response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotificationResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            }
+        },
         "/user": {
             "get": {
                 "tags": [
@@ -970,6 +1157,128 @@
                     }
                 ]
             },
+            "NotificationResponse": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SuccessResponse"
+                    },
+                    {
+                        "properties": {
+                            "status": {
+                                "type": "string",
+                                "example": "success"
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": ""
+                            },
+                            "data": {
+                                "$ref": "#/components/schemas/Notification"
+                            }
+                        }
+                    }
+                ]
+            },
+            "DeleteNotificationResponse": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SuccessResponse"
+                    },
+                    {
+                        "properties": {
+                            "status": {
+                                "type": "string",
+                                "example": "success"
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": ""
+                            },
+                            "data": {
+                                "type": "object"
+                            }
+                        }
+                    }
+                ]
+            },
+            "UserNotificationsResponse": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SuccessResponse"
+                    },
+                    {
+                        "properties": {
+                            "status": {
+                                "type": "string",
+                                "example": "success"
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": ""
+                            },
+                            "data": {
+                                "type": "array",
+                                "items": {
+                                    "properties": {
+                                        "": {
+                                            "$ref": "#/components/schemas/Notification"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                ]
+            },
+            "NotificationBody": {
+                "required": [
+                    "car_id",
+                    "type",
+                    "title",
+                    "alert_date"
+                ],
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SuccessResponse"
+                    },
+                    {
+                        "properties": {
+                            "car_id": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "type": {
+                                "type": "string",
+                                "example": "ITP"
+                            },
+                            "title": {
+                                "type": "string",
+                                "example": "Audi ITP"
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "My message"
+                            },
+                            "alert_date": {
+                                "type": "string",
+                                "example": "2023-06-05 10:00:00"
+                            },
+                            "expiration_date": {
+                                "type": "string",
+                                "example": "2023-06-06 10:00:00"
+                            },
+                            "meta_data": {
+                                "type": "object"
+                            }
+                        }
+                    }
+                ]
+            },
             "UpdateUserBody": {
                 "type": "object",
                 "allOf": [
@@ -1083,6 +1392,47 @@
                     "description": {
                         "type": "string",
                         "example": "My favorite car"
+                    }
+                },
+                "type": "object"
+            },
+            "Notification": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "user_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "car_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "ITP"
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Audi ITP"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "My message"
+                    },
+                    "alert_date": {
+                        "type": "string",
+                        "example": "2023-06-05 10:00:00"
+                    },
+                    "expiration_date": {
+                        "type": "string",
+                        "example": "2023-06-06 10:00:00"
+                    },
+                    "meta_data": {
+                        "type": "object",
+                        "example": []
                     }
                 },
                 "type": "object"

@@ -51,10 +51,6 @@ class Car extends Model
         "Hybrid motorina", "Fara", "Altul"
     ];
 
-    public const NOTIFICATION_TYPES = [
-        "ITP", "RCA","Vinieta","Cauciucuri","Custom",
-        "Asigurare de calatorie","Buletin","Permis de conducere"
-    ];
 
     /**
      * The attributes that are mass assignable.

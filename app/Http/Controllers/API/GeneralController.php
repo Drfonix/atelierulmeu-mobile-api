@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Car;
 use App\Models\CarMake;
 use App\Models\CarModel;
+use App\Models\Notification;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -58,7 +59,7 @@ class GeneralController extends Controller
             "car_sub_categories" => Car::CAR_SUB_CATEGORIES,
             "car_registration_types" => Car::CAR_REGISTRATION_TYPES,
             "car_fuel_types" => Car::CAR_FUEL_TYPES,
-            "notification_types" => Car::NOTIFICATION_TYPES,
+            "notification_types" => Notification::NOTIFICATION_TYPES,
             "car_makes" => $carMakes,
             "car_models" => $carModels,
         ];

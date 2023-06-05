@@ -181,9 +181,8 @@ class CarController extends Controller
         $carData = $request->validated();
         $user = $request->user();
 
-        if($car->user_id !== $user->id) {
-            return  $this->errorResponse([], "You are not the resource owner");
-        }
+        $this->checkResourceOwner($car, $user);
+
         $car->update($carData);
 
         $carResource = new CarResource($car->fresh());
@@ -218,9 +217,9 @@ class CarController extends Controller
     public function deleteUserCar(Request $request, Car $car): JsonResponse
     {
         $user = $request->user();
-        if($car->user_id !== $user->id) {
-            return  $this->errorResponse([], "You are not the resource owner");
-        }
+
+        $this->checkResourceOwner($car, $user);
+
         $car->delete();
 
         return $this->successResponse([], "The car was deleted success.");
