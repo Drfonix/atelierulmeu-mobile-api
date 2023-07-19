@@ -17,13 +17,14 @@ use Illuminate\Database\Eloquent\Model;
  * @OA\Property(property="make",type="string",example="BMW"),
  * @OA\Property(property="model",type="string",example="Seria 3"),
  * @OA\Property(property="manufacture_year",type="string",example="2002"),
- * @OA\Property(property="tyre_size",type="string",example={}),
+ * @OA\Property(property="tyre_size",type="json",example={}),
  * @OA\Property(property="motor_power",type="string",example="110"),
  * @OA\Property(property="cylinder_capacity",type="string",example="1995"),
  * @OA\Property(property="number_places",type="string",example="5"),
  * @OA\Property(property="max_per_mass",type="string",example="1550"),
  * @OA\Property(property="civ_number",type="string",example="K884163"),
  * @OA\Property(property="description",type="string",example="My favorite car"),
+ * @OA\Property(property="favorite",type="boolean",example="true"),
  * )
  * Class Car
  * @package App\Models
@@ -75,6 +76,7 @@ class Car extends Model
         'max_per_mass',
         'civ_number',
         'description',
+        'favorite'
     ];
 
     /**

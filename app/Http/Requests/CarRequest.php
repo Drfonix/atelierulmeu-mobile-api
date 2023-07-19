@@ -43,6 +43,7 @@ class CarRequest extends FormRequest
                     'max_per_mass' => ['string', 'nullable'],
                     'civ_number' => ['string', 'nullable'],
                     'description' => ['string', 'nullable'],
+                    'favorite' => ['boolean', 'nullable'],
 
                 ];
             default:

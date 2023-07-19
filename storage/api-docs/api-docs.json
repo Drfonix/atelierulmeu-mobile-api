@@ -967,7 +967,7 @@
                                 "example": "2002"
                             },
                             "tyre_size": {
-                                "type": "string",
+                                "type": "json",
                                 "example": []
                             },
                             "motor_power": {
@@ -993,6 +993,10 @@
                             "description": {
                                 "type": "string",
                                 "example": "My favorite car"
+                            },
+                            "favorite": {
+                                "type": "boolean",
+                                "example": "true"
                             }
                         }
                     }
@@ -1366,7 +1370,7 @@
                         "example": "2002"
                     },
                     "tyre_size": {
-                        "type": "string",
+                        "type": "json",
                         "example": []
                     },
                     "motor_power": {
@@ -1392,6 +1396,10 @@
                     "description": {
                         "type": "string",
                         "example": "My favorite car"
+                    },
+                    "favorite": {
+                        "type": "boolean",
+                        "example": "true"
                     }
                 },
                 "type": "object"
