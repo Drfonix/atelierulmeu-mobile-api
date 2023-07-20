@@ -14,6 +14,193 @@
         }
     ],
     "paths": {
+        "/appointments/{id}": {
+            "get": {
+                "tags": [
+                    "Appointment"
+                ],
+                "summary": "Get user appointment by id",
+                "description": "Returns the appointment detailed data",
+                "operationId": "4cfe493dde0727e41de395f2d21b9106",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of appointment",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Appointment response by id.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AppointmentRequestResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Appointment"
+                ],
+                "summary": "Update the current appointment",
+                "description": "Updates the user appointment by id",
+                "operationId": "8c6358dbab3ae54e77f37ead230f4e47",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of appointment",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Appointment fillable properties",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AppointmentRequestBody"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated appointment response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AppointmentRequestResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Appointment"
+                ],
+                "summary": "Delete the user appointment",
+                "description": "Deletes the user appointment by id",
+                "operationId": "48eb5ba3bb8944379a7495a4afdc2f99",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of appointment",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete appointment response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DeleteAppointmentRequestResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            }
+        },
+        "/appointments": {
+            "get": {
+                "tags": [
+                    "Appointment"
+                ],
+                "summary": "Get user appointments",
+                "description": "Returns the user related appointments",
+                "operationId": "92f9b8f5539b3b39586ec5e7c35dc4f0",
+                "responses": {
+                    "200": {
+                        "description": "The user appointments response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserAppointmentRequestResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Appointment"
+                ],
+                "summary": "Create new user appointment",
+                "description": "Creates a new user related appointment",
+                "operationId": "9e33f5fe6b2d66b087badad964a0cdf3",
+                "requestBody": {
+                    "description": "Appointment fillable properties",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AppointmentRequestBody"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Appointment response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AppointmentRequestResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            }
+        },
         "/register": {
             "post": {
                 "tags": [
@@ -697,6 +884,159 @@
     },
     "components": {
         "schemas": {
+            "AppointmentRequestBody": {
+                "required": [
+                    "car_plate_number",
+                    "client_name",
+                    "phone",
+                    "service_data"
+                ],
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SuccessResponse"
+                    },
+                    {
+                        "properties": {
+                            "title": {
+                                "type": "string",
+                                "example": "For tyre change"
+                            },
+                            "status": {
+                                "type": "string",
+                                "example": "new"
+                            },
+                            "car_plate_number": {
+                                "type": "string",
+                                "example": "BV 01 ABC"
+                            },
+                            "client_name": {
+                                "type": "string",
+                                "example": "Jhon Doe"
+                            },
+                            "car_make_model": {
+                                "type": "string",
+                                "example": "BMW 320D E46"
+                            },
+                            "phone": {
+                                "type": "string",
+                                "example": "0740123456"
+                            },
+                            "from": {
+                                "type": "string",
+                                "example": "2023-07-25 10:00"
+                            },
+                            "to": {
+                                "type": "string",
+                                "example": "2023-07-25 18:00"
+                            },
+                            "duration": {
+                                "type": "number",
+                                "format": "double",
+                                "example": "6.5"
+                            },
+                            "requested_services": {
+                                "type": "array",
+                                "items": {},
+                                "example": [
+                                    "Tyre change",
+                                    "Oil change"
+                                ]
+                            },
+                            "meta_data": {
+                                "type": "object",
+                                "example": {
+                                    "serviceStatus": "accepted"
+                                }
+                            },
+                            "service_data": {
+                                "type": "object",
+                                "example": {
+                                    "user": {
+                                        "name": "Jhon"
+                                    },
+                                    "service": {
+                                        "name": "Demo Tyre Service"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ]
+            },
+            "AppointmentRequestResponse": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SuccessResponse"
+                    },
+                    {
+                        "properties": {
+                            "status": {
+                                "type": "string",
+                                "example": "success"
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": ""
+                            },
+                            "data": {
+                                "$ref": "#/components/schemas/AppointmentRequest"
+                            }
+                        }
+                    }
+                ]
+            },
+            "DeleteAppointmentRequestResponse": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SuccessResponse"
+                    },
+                    {
+                        "properties": {
+                            "status": {
+                                "type": "string",
+                                "example": "success"
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": ""
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": []
+                            }
+                        }
+                    }
+                ]
+            },
+            "UserAppointmentRequestResponse": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SuccessResponse"
+                    },
+                    {
+                        "properties": {
+                            "status": {
+                                "type": "string",
+                                "example": "success"
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": ""
+                            },
+                            "data": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/AppointmentRequest"
+                                }
+                            }
+                        }
+                    }
+                ]
+            },
             "RegisterBody": {
                 "required": [
                     "phone"
@@ -1323,6 +1663,81 @@
                     },
                     "data": {
                         "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "AppointmentRequest": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "user_id": {
+                        "type": "integer",
+                        "example": 2
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "For tyre change"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "new"
+                    },
+                    "car_plate_number": {
+                        "type": "string",
+                        "example": "BV 01 ABC"
+                    },
+                    "client_name": {
+                        "type": "string",
+                        "example": "Jhon Doe"
+                    },
+                    "car_make_model": {
+                        "type": "string",
+                        "example": "BMW 320D E46"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "example": "0740123456"
+                    },
+                    "from": {
+                        "type": "string",
+                        "example": "2023-07-25 10:00"
+                    },
+                    "to": {
+                        "type": "string",
+                        "example": "2023-07-25 18:00"
+                    },
+                    "duration": {
+                        "type": "number",
+                        "format": "double",
+                        "example": "6.5"
+                    },
+                    "requested_services": {
+                        "type": "array",
+                        "items": {},
+                        "example": [
+                            "Tyre change",
+                            "Oil change"
+                        ]
+                    },
+                    "meta_data": {
+                        "type": "object",
+                        "example": {
+                            "serviceStatus": "accepted"
+                        }
+                    },
+                    "service_data": {
+                        "type": "object",
+                        "example": {
+                            "user": {
+                                "name": "Jhon"
+                            },
+                            "service": {
+                                "name": "Demo Tyre Service"
+                            }
+                        }
                     }
                 },
                 "type": "object"

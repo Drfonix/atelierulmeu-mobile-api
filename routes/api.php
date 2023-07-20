@@ -40,6 +40,12 @@ Route::prefix('/v1')->group(function() {
             Route::put('/cars/{car}', 'App\Http\Controllers\API\CarController@updateUserCar')->name('car.update');
             Route::delete('/cars/{car}', 'App\Http\Controllers\API\CarController@deleteUserCar')->name('car.delete');
 
+            Route::get('/appointments/{appointment}', 'App\Http\Controllers\API\AppointmentRequestController@getById')->name('appointment.by-id');
+            Route::get('/appointments', 'App\Http\Controllers\API\AppointmentRequestController@getUserAppointments')->name('appointment.user-appointments');
+            Route::post('/appointments', 'App\Http\Controllers\API\AppointmentRequestController@createUserAppointment')->name('appointment.create');
+            Route::put('/appointments/{appointment}', 'App\Http\Controllers\API\AppointmentRequestController@updateUserAppointment')->name('appointment.update');
+            Route::delete('/appointments/{appointment}', 'App\Http\Controllers\API\AppointmentRequestController@deleteUserAppointment')->name('appointment.delete');
+
             Route::get('/notifications/{notification}', 'App\Http\Controllers\API\NotificationController@getNotificationById')->name('notification.notification-by-id');
             Route::get('/notifications', 'App\Http\Controllers\API\NotificationController@getUserNotifications')->name('notification.user-notifications');
             Route::post('/notifications', 'App\Http\Controllers\API\NotificationController@createUserNotification')->name('notification.create');

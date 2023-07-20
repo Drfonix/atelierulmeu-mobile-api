@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Http\Resources\AppointmentRequestResource;
 use App\Http\Resources\CarResource;
 use App\Http\Resources\NotificationResource;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -28,6 +29,7 @@ class GeneralEvent implements ShouldBroadcastNow
     public const MODEL_NAMES = [
         "CAR" => "Car",
         "NOTIFICATION" => "Notification",
+        "APPOINTMENT_REQUEST" => "AppointmentRequest",
     ];
 
     /**
@@ -64,6 +66,9 @@ class GeneralEvent implements ShouldBroadcastNow
                 break;
             case $this::MODEL_NAMES["NOTIFICATION"]:
                 $model = new NotificationResource($this->model);
+                break;
+            case $this::MODEL_NAMES["APPOINTMENT_REQUEST"]:
+                $model = new AppointmentRequestResource($this->model);
                 break;
             default:
                 $model = [];

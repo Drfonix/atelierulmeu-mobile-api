@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\AppointmentRequest;
 use App\Models\Car;
 use App\Models\CarMake;
 use App\Models\CarModel;
@@ -55,6 +56,7 @@ class GeneralController extends Controller
         $carModels = CarModel::query()->select("make_id","name")->get();
 
         $response = [
+            "appointment_statuses" => AppointmentRequest::STATUS,
             "car_categories" => Car::CAR_CATEGORIES,
             "car_sub_categories" => Car::CAR_SUB_CATEGORIES,
             "car_registration_types" => Car::CAR_REGISTRATION_TYPES,

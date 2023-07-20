@@ -68,4 +68,14 @@ class User extends Authenticatable
             ->whereNull('deleted_at')
             ->orderBy('name');
     }
+
+    /**
+     * Get the cars of users
+     */
+    public function appointments()
+    {
+        return $this->hasMany(AppointmentRequest::class)
+            ->whereNull('deleted_at')
+            ->orderBy('status');
+    }
 }
