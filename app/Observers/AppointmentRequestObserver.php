@@ -15,13 +15,13 @@ class AppointmentRequestObserver
      */
     public function created(AppointmentRequest $appointmentRequest)
     {
-        event(
-            new GeneralEvent(
-                $appointmentRequest->user_id, $appointmentRequest,
-                GeneralEvent::EVENT_TYPES["CREATED"],
-                GeneralEvent::MODEL_NAMES["APPOINTMENT_REQUEST"],
-            )
-        );
+//        event(
+//            new GeneralEvent(
+//                $appointmentRequest->user_id, $appointmentRequest,
+//                GeneralEvent::EVENT_TYPES["CREATED"],
+//                GeneralEvent::MODEL_NAMES["APPOINTMENT_REQUEST"],
+//            )
+//        );
     }
 
     /**
@@ -32,13 +32,13 @@ class AppointmentRequestObserver
      */
     public function updated(AppointmentRequest $appointmentRequest)
     {
-        event(
-            new GeneralEvent(
-                $appointmentRequest->user_id, $appointmentRequest,
-                GeneralEvent::EVENT_TYPES["UPDATED"],
-                GeneralEvent::MODEL_NAMES["APPOINTMENT_REQUEST"],
-            )
-        );
+//        event(
+//            new GeneralEvent(
+//                $appointmentRequest->user_id, $appointmentRequest,
+//                GeneralEvent::EVENT_TYPES["UPDATED"],
+//                GeneralEvent::MODEL_NAMES["APPOINTMENT_REQUEST"],
+//            )
+//        );
     }
 
     /**
@@ -49,13 +49,13 @@ class AppointmentRequestObserver
      */
     public function deleted(AppointmentRequest $appointmentRequest)
     {
-        event(
-            new GeneralEvent(
-                $appointmentRequest->user_id, $appointmentRequest,
-                GeneralEvent::EVENT_TYPES["DELETED"],
-                GeneralEvent::MODEL_NAMES["APPOINTMENT_REQUEST"],
-            )
-        );
+//        event(
+//            new GeneralEvent(
+//                $appointmentRequest->user_id, $appointmentRequest,
+//                GeneralEvent::EVENT_TYPES["DELETED"],
+//                GeneralEvent::MODEL_NAMES["APPOINTMENT_REQUEST"],
+//            )
+//        );
     }
 
     /**

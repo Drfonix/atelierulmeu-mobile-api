@@ -16,6 +16,12 @@ use Illuminate\Http\Request;
  * @OA\Property(property="email", type="string", example="tepes@vlad.ro"),
  * )
  *
+ * @OA\Schema(type="object",schema="DeleteUserResponse",
+ * @OA\Property(property="status", type="string", example="success"),
+ * @OA\Property(property="message", type="string", example=""),
+ * @OA\Property(property="data", type="object", example={}),
+ * )
+ *
  * Class UserController
  * @package App\Http\Controllers\API
  */
@@ -87,7 +93,7 @@ class UserController extends Controller
      *     @OA\Response(
      *      response="200",
      *      description="The updated user data response.",
-     *      @OA\JsonContent(ref="#/components/schemas/SuccessResponse")
+     *      @OA\JsonContent(ref="#/components/schemas/DeleteUserResponse")
      *     )
      * )
      *

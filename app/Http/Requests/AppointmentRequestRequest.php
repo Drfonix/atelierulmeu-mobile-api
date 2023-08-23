@@ -2,10 +2,15 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AppointmentRequestRequest extends FormRequest
 {
+    use AuthorizesRequests {
+        authorize as check;
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -13,7 +18,7 @@ class AppointmentRequestRequest extends FormRequest
      */
     public function authorize()
     {
-        return (boolean)$this->user();
+        return ($this->user() && $this->check('can-access', $this->appointment));
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Validation\UnauthorizedException;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
@@ -64,7 +65,7 @@ class User extends Authenticatable
      */
     public function cars()
     {
-        return $this->hasMany(Car::class)
+        return $this->hasMany(Car::class, "user_id", "id")
             ->whereNull('deleted_at')
             ->orderBy('name');
     }
@@ -74,8 +75,40 @@ class User extends Authenticatable
      */
     public function appointments()
     {
-        return $this->hasMany(AppointmentRequest::class)
+        return $this->hasMany(AppointmentRequest::class, "user_id", "id")
             ->whereNull('deleted_at')
             ->orderBy('status');
+    }
+
+    /**
+     * Get the cars of users
+     */
+    public function images()
+    {
+        return $this->hasMany(UserImage::class, "user_id", "id")
+            ->orderBy('name');
+    }
+
+    /**
+     * Get the cars of users
+     */
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class, "user_id", "id")
+            ->orderBy('title');
+    }
+
+    /**
+     * Checks the car id
+     *
+     * @param $carId
+     */
+    public function checkCarId($carId)
+    {
+        $car = $this->cars()->where('id', $carId)->first();
+//        dd($carId ,!$car);
+        if($carId && !$car) {
+            throw new UnauthorizedException("You are not the car owner");
+        }
     }
 }

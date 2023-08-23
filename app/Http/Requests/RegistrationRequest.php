@@ -3,10 +3,15 @@
 namespace App\Http\Requests;
 
 use App\Rules\ValidPhoneNumber;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegistrationRequest extends FormRequest
 {
+    use AuthorizesRequests {
+        authorize as check;
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -14,7 +19,7 @@ class RegistrationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return !$this->user();
+        return !($this->user());
     }
 
     /**

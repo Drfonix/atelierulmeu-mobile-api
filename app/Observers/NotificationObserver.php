@@ -15,13 +15,13 @@ class NotificationObserver
      */
     public function created(Notification $notification)
     {
-        event(
-            new GeneralEvent(
-                $notification->user_id, $notification,
-                GeneralEvent::EVENT_TYPES["CREATED"],
-                GeneralEvent::MODEL_NAMES["NOTIFICATION"],
-            )
-        );
+//        event(
+//            new GeneralEvent(
+//                $notification->user_id, $notification,
+//                GeneralEvent::EVENT_TYPES["CREATED"],
+//                GeneralEvent::MODEL_NAMES["NOTIFICATION"],
+//            )
+//        );
     }
 
     /**
@@ -32,13 +32,13 @@ class NotificationObserver
      */
     public function updated(Notification $notification)
     {
-        event(
-            new GeneralEvent(
-                $notification->user_id, $notification,
-                GeneralEvent::EVENT_TYPES["UPDATED"],
-                GeneralEvent::MODEL_NAMES["NOTIFICATION"],
-            )
-        );
+//        event(
+//            new GeneralEvent(
+//                $notification->user_id, $notification,
+//                GeneralEvent::EVENT_TYPES["UPDATED"],
+//                GeneralEvent::MODEL_NAMES["NOTIFICATION"],
+//            )
+//        );
     }
 
     /**
@@ -49,13 +49,13 @@ class NotificationObserver
      */
     public function deleted(Notification $notification)
     {
-        event(
-            new GeneralEvent(
-                $notification->user_id, $notification,
-                GeneralEvent::EVENT_TYPES["DELETED"],
-                GeneralEvent::MODEL_NAMES["NOTIFICATION"],
-            )
-        );
+//        event(
+//            new GeneralEvent(
+//                $notification->user_id, $notification,
+//                GeneralEvent::EVENT_TYPES["DELETED"],
+//                GeneralEvent::MODEL_NAMES["NOTIFICATION"],
+//            )
+//        );
     }
 
     /**

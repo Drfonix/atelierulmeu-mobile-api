@@ -2,18 +2,23 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CarRequest extends FormRequest
 {
+    use AuthorizesRequests {
+        authorize as check;
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize(): bool
+    public function authorize()
     {
-        return (boolean)$this->user();
+        return ($this->user() && $this->check('can-access', $this->car));
     }
 
     /**
@@ -44,7 +49,6 @@ class CarRequest extends FormRequest
                     'civ_number' => ['string', 'nullable'],
                     'description' => ['string', 'nullable'],
                     'favorite' => ['boolean', 'nullable'],
-
                 ];
             default:
                 return [];

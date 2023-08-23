@@ -6,7 +6,9 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Exceptions\PostTooLargeException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Validation\UnauthorizedException;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -77,7 +79,8 @@ class Handler extends ExceptionHandler
         ];
         $statusCode = JsonResponse::HTTP_BAD_REQUEST;
 
-        if($exception instanceof AuthenticationException || $exception instanceof AuthorizationException) {
+        if($exception instanceof AuthenticationException ||
+            $exception instanceof AuthorizationException) {
             $statusCode = JsonResponse::HTTP_UNAUTHORIZED;
             $response['message'] = 'Unauthorized';
         }
@@ -87,16 +90,27 @@ class Handler extends ExceptionHandler
             $statusCode = JsonResponse::HTTP_METHOD_NOT_ALLOWED;
         }
 
-        if ($exception instanceof ValidationException && $request->isJson()) {
+        if ($exception instanceof ValidationException) {
+            $response['message'] = 'Validation failed';
             $response['data'] = $exception->validator->getMessageBag()->toArray();
             $statusCode = JsonResponse::HTTP_PRECONDITION_FAILED;
         }
 
         // This will replace our 404 response with
         // a JSON response.
-        if ($exception instanceof ModelNotFoundException || $exception instanceof NotFoundHttpException) {
+        if ($exception instanceof ModelNotFoundException ||
+            $exception instanceof NotFoundHttpException) {
             $response['message'] = 'Resource not found';
             $statusCode = JsonResponse::HTTP_NOT_FOUND;
+        }
+
+        if($exception instanceof PostTooLargeException) {
+            $statusCode = JsonResponse::HTTP_REQUEST_ENTITY_TOO_LARGE;
+            $response['message'] = 'The request size is too large';
+        }
+
+        if($exception instanceof UnauthorizedException) {
+            $response['message'] = $exception->getMessage();
         }
 
         if(property_exists($exception,"getStatusCode")) {

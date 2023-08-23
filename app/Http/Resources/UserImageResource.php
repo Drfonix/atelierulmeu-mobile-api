@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use JsonSerializable;
 
-class NotificationResource extends JsonResource
+class UserImageResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -20,11 +20,11 @@ class NotificationResource extends JsonResource
         return [
           "id" => $this->id,
           "car_id" => $this->car_id,
+          "visible_name" => $this->visible_name,
           "type" => $this->type,
-          "title" => $this->title,
-          "message" => $this->message,
-          "alert_date" => $this->alert_date,
-          "expiration_date" => $this->expiration_date,
+          "size" => $this->size,
+          "h_size" => $this->h_size,
+          "favorite" => $this->favorite,
           "meta_data" => $this->meta_data,
         ];
     }

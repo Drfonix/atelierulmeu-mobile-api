@@ -25,11 +25,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  *   @OAS\SecurityScheme(securityScheme="bearerAuth",type="http",scheme="bearer", in="header")
  *
  *
- * @OA\Schema(type="object",schema="SuccessResponse",
- * @OA\Property(property="status", type="string", example="success"),
- * @OA\Property(property="message", type="string", example=""),
- * @OA\Property(property="data", type="object"),
- * )
  */
 class Controller extends BaseController
 {

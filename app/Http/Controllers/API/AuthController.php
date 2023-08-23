@@ -73,6 +73,11 @@ use Illuminate\Support\Str;
  * )
  * )
  *
+ * @OA\Schema(type="object",schema="LogoutResponse",
+ * @OA\Property(property="status", type="string", example="success"),
+ * @OA\Property(property="message", type="string", example=""),
+ * @OA\Property(property="data", type="object", example={}),
+ * )
  *
  * Class AuthController
  * @package App\Http\Controllers\API
@@ -82,9 +87,9 @@ class AuthController extends Controller
 
     private SmsService $smsService;
 
-    public function __construct()
+    public function __construct(SmsService $smsService)
     {
-        $this->smsService = new SmsService();
+        $this->smsService = $smsService;
     }
 
     /**
@@ -154,7 +159,7 @@ class AuthController extends Controller
      *     @OA\Response(
      *      response="200",
      *      description="Successfully logged out.",
-     *      @OA\JsonContent(ref="#/components/schemas/SuccessResponse"),
+     *      @OA\JsonContent(ref="#/components/schemas/LogoutResponse"),
      *     )
      * )
      * @param LogoutRequest $request

@@ -42,7 +42,7 @@ use Illuminate\Http\Request;
  * @OA\Property(property="status", type="string", example="success"),
  * @OA\Property(property="message", type="string", example=""),
  * @OA\Property(property="data", type="array",
- * @OA\Items(type="object",ref="#/components/schemas/AppointmentRequest"))
+ *     @OA\Items(ref="#/components/schemas/AppointmentRequest"))
  * )
  *
  * Class AppointmentRequestController

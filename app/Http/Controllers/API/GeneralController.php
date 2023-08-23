@@ -8,6 +8,7 @@ use App\Models\Car;
 use App\Models\CarMake;
 use App\Models\CarModel;
 use App\Models\Notification;
+use App\Services\ImageService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -32,6 +33,16 @@ use Illuminate\Http\Request;
  */
 class GeneralController extends Controller
 {
+
+    /**
+     * @var ImageService
+     */
+    protected ImageService $imageService;
+
+    public function __construct(ImageService $imageService)
+    {
+        $this->imageService = $imageService;
+    }
 
     /**
      * @OA\Get(
@@ -66,7 +77,9 @@ class GeneralController extends Controller
             "car_models" => $carModels,
         ];
 
-        return $this->successResponse($response);
+        $userFilesDiskInfo = $this->imageService->getUserFilesAndSizes($request->user());
+
+        return $this->successResponse(array_merge($response, $userFilesDiskInfo));
     }
 
 }

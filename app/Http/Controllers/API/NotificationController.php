@@ -27,7 +27,7 @@ use Illuminate\Http\Request;
  * @OA\Property(property="status", type="string", example="success"),
  * @OA\Property(property="message", type="string", example=""),
  * @OA\Property(property="data", type="array",
- * @OA\Items(@OA\Property(type="object",ref="#/components/schemas/Notification"))),
+ *     @OA\Items(ref="#/components/schemas/Notification")),
  * )
  *
  * @OA\Schema(type="object",schema="NotificationBody",

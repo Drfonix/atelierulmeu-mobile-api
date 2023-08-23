@@ -48,7 +48,7 @@ use Illuminate\Http\Request;
  * @OA\Property(property="status", type="string", example="success"),
  * @OA\Property(property="message", type="string", example=""),
  * @OA\Property(property="data", type="array",
- * @OA\Items(@OA\Property(property="car", type="object",ref="#/components/schemas/Car"))),
+ *     @OA\Items(ref="#/components/schemas/Car")),
  * )
  *
  * Class CarController

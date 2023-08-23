@@ -51,6 +51,12 @@ Route::prefix('/v1')->group(function() {
             Route::post('/notifications', 'App\Http\Controllers\API\NotificationController@createUserNotification')->name('notification.create');
             Route::put('/notifications/{notification}', 'App\Http\Controllers\API\NotificationController@updateUserNotification')->name('notification.update');
             Route::delete('/notifications/{notification}', 'App\Http\Controllers\API\NotificationController@deleteUserNotification')->name('notification.delete');
+
+            Route::post('/images', 'App\Http\Controllers\API\UserImageController@postUploadUserImage');
+            Route::get('/images', 'App\Http\Controllers\API\UserImageController@getUserImages');
+            Route::post('/images/{userImage}', 'App\Http\Controllers\API\UserImageController@postEditImage');
+            Route::delete('/images/{userImage}', 'App\Http\Controllers\API\UserImageController@deleteImage');
+            Route::get('/images/{userImage}', 'App\Http\Controllers\API\UserImageController@getViewImage');
         });
     });
 });

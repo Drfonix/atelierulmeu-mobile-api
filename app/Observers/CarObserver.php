@@ -15,13 +15,13 @@ class CarObserver
      */
     public function created(Car $car)
     {
-        event(
-            new GeneralEvent(
-                $car->user_id, $car,
-                GeneralEvent::EVENT_TYPES["CREATED"],
-                GeneralEvent::MODEL_NAMES["CAR"],
-            )
-        );
+//        event(
+//            new GeneralEvent(
+//                $car->user_id, $car,
+//                GeneralEvent::EVENT_TYPES["CREATED"],
+//                GeneralEvent::MODEL_NAMES["CAR"],
+//            )
+//        );
     }
 
     /**
@@ -32,13 +32,13 @@ class CarObserver
      */
     public function updated(Car $car)
     {
-        event(
-            new GeneralEvent(
-                $car->user_id, $car,
-                GeneralEvent::EVENT_TYPES["UPDATED"],
-                GeneralEvent::MODEL_NAMES["CAR"],
-            )
-        );
+//        event(
+//            new GeneralEvent(
+//                $car->user_id, $car,
+//                GeneralEvent::EVENT_TYPES["UPDATED"],
+//                GeneralEvent::MODEL_NAMES["CAR"],
+//            )
+//        );
     }
 
     /**
@@ -49,13 +49,13 @@ class CarObserver
      */
     public function deleted(Car $car)
     {
-        event(
-            new GeneralEvent(
-                $car->user_id, $car,
-                GeneralEvent::EVENT_TYPES["DELETED"],
-                GeneralEvent::MODEL_NAMES["CAR"],
-            )
-        );
+//        event(
+//            new GeneralEvent(
+//                $car->user_id, $car,
+//                GeneralEvent::EVENT_TYPES["DELETED"],
+//                GeneralEvent::MODEL_NAMES["CAR"],
+//            )
+//        );
     }
 
     /**

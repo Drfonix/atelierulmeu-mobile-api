@@ -16,7 +16,11 @@ class ForceJsonResponse
      */
     public function handle(Request $request, Closure $next)
     {
-        $request->headers->set('Accept', 'application/json');
+        $pathInfo = $request->getPathInfo();
+        if(!str_contains($pathInfo, "images")) {
+            $request->headers->set('Accept', 'application/json');
+        }
+
         return $next($request);
     }
 }

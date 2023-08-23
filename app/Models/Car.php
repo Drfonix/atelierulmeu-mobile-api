@@ -98,6 +98,7 @@ class Car extends Model
         'user_id' => 'integer',
         'tyre_size' => 'json',
         'updated_at' => 'datetime',
+        'favorite' => 'boolean',
     ];
 
     /**
@@ -106,5 +107,15 @@ class Car extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Gets car images
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function images()
+    {
+        return $this->hasMany(UserImage::class, "car_id", "id");
     }
 }

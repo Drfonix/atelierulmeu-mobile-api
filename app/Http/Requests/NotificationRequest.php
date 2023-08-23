@@ -2,18 +2,23 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Http\FormRequest;
 
 class NotificationRequest extends FormRequest
 {
+    use AuthorizesRequests {
+        authorize as check;
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize(): bool
+    public function authorize()
     {
-        return (boolean)$this->user();
+        return ($this->user() && $this->check('can-access', $this->notification));
     }
 
     /**

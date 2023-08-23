@@ -248,7 +248,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/SuccessResponse"
+                                    "$ref": "#/components/schemas/LogoutResponse"
                                 }
                             }
                         }
@@ -868,7 +868,187 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/SuccessResponse"
+                                    "$ref": "#/components/schemas/DeleteUserResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            }
+        },
+        "/images": {
+            "get": {
+                "tags": [
+                    "UserImage"
+                ],
+                "summary": "Get user images",
+                "description": "Returns the user images models",
+                "operationId": "9ae54cba70b5edcd45d126cca7ecedd5",
+                "responses": {
+                    "200": {
+                        "description": "The user images model response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserImagesResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "UserImage"
+                ],
+                "summary": "Upload new user image",
+                "description": "Creates a new user image",
+                "operationId": "95dcce41710c39ca2ee94dc7a152b5a0",
+                "requestBody": {
+                    "description": "User image fillable properties",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserImageBodyUpload"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User image model response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserImageResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            }
+        },
+        "/images/{id}": {
+            "get": {
+                "tags": [
+                    "UserImage"
+                ],
+                "summary": "Get user image by id",
+                "description": "Returns the user image. inline/stream",
+                "operationId": "5898b0bbe2f8c821c7244e5a4f130905",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of user image",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The image file response"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "UserImage"
+                ],
+                "summary": "Update the user image",
+                "description": "Update the user image model. (not the file)",
+                "operationId": "9e67f0cc897bc731e906bb75815a896b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of user image",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "User image fillable properties",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserImageBodyEdit"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User image model response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserImageResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "UserImage"
+                ],
+                "summary": "Delete user image by id",
+                "description": "Delete the user image model and file",
+                "operationId": "2e120d717538f7e9026e074bc53f54d0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of user image",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The user image deleted successfull",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DeleteUserImageResponse"
                                 }
                             }
                         }
@@ -891,170 +1071,135 @@
                     "phone",
                     "service_data"
                 ],
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/SuccessResponse"
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "example": "For tyre change"
                     },
-                    {
-                        "properties": {
-                            "title": {
-                                "type": "string",
-                                "example": "For tyre change"
+                    "status": {
+                        "type": "string",
+                        "example": "new"
+                    },
+                    "car_plate_number": {
+                        "type": "string",
+                        "example": "BV 01 ABC"
+                    },
+                    "client_name": {
+                        "type": "string",
+                        "example": "Jhon Doe"
+                    },
+                    "car_make_model": {
+                        "type": "string",
+                        "example": "BMW 320D E46"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "example": "0740123456"
+                    },
+                    "from": {
+                        "type": "string",
+                        "example": "2023-07-25 10:00"
+                    },
+                    "to": {
+                        "type": "string",
+                        "example": "2023-07-25 18:00"
+                    },
+                    "duration": {
+                        "type": "number",
+                        "format": "double",
+                        "example": "6.5"
+                    },
+                    "requested_services": {
+                        "type": "array",
+                        "items": {},
+                        "example": [
+                            "Tyre change",
+                            "Oil change"
+                        ]
+                    },
+                    "meta_data": {
+                        "type": "object",
+                        "example": {
+                            "serviceStatus": "accepted"
+                        }
+                    },
+                    "service_data": {
+                        "type": "object",
+                        "example": {
+                            "user": {
+                                "name": "Jhon"
                             },
-                            "status": {
-                                "type": "string",
-                                "example": "new"
-                            },
-                            "car_plate_number": {
-                                "type": "string",
-                                "example": "BV 01 ABC"
-                            },
-                            "client_name": {
-                                "type": "string",
-                                "example": "Jhon Doe"
-                            },
-                            "car_make_model": {
-                                "type": "string",
-                                "example": "BMW 320D E46"
-                            },
-                            "phone": {
-                                "type": "string",
-                                "example": "0740123456"
-                            },
-                            "from": {
-                                "type": "string",
-                                "example": "2023-07-25 10:00"
-                            },
-                            "to": {
-                                "type": "string",
-                                "example": "2023-07-25 18:00"
-                            },
-                            "duration": {
-                                "type": "number",
-                                "format": "double",
-                                "example": "6.5"
-                            },
-                            "requested_services": {
-                                "type": "array",
-                                "items": {},
-                                "example": [
-                                    "Tyre change",
-                                    "Oil change"
-                                ]
-                            },
-                            "meta_data": {
-                                "type": "object",
-                                "example": {
-                                    "serviceStatus": "accepted"
-                                }
-                            },
-                            "service_data": {
-                                "type": "object",
-                                "example": {
-                                    "user": {
-                                        "name": "Jhon"
-                                    },
-                                    "service": {
-                                        "name": "Demo Tyre Service"
-                                    }
-                                }
+                            "service": {
+                                "name": "Demo Tyre Service"
                             }
                         }
                     }
-                ]
+                },
+                "type": "object"
             },
             "AppointmentRequestResponse": {
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/SuccessResponse"
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
                     },
-                    {
-                        "properties": {
-                            "status": {
-                                "type": "string",
-                                "example": "success"
-                            },
-                            "message": {
-                                "type": "string",
-                                "example": ""
-                            },
-                            "data": {
-                                "$ref": "#/components/schemas/AppointmentRequest"
-                            }
-                        }
+                    "message": {
+                        "type": "string",
+                        "example": ""
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/AppointmentRequest"
                     }
-                ]
+                },
+                "type": "object"
             },
             "DeleteAppointmentRequestResponse": {
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/SuccessResponse"
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
                     },
-                    {
-                        "properties": {
-                            "status": {
-                                "type": "string",
-                                "example": "success"
-                            },
-                            "message": {
-                                "type": "string",
-                                "example": ""
-                            },
-                            "data": {
-                                "type": "object",
-                                "example": []
-                            }
-                        }
+                    "message": {
+                        "type": "string",
+                        "example": ""
+                    },
+                    "data": {
+                        "type": "object",
+                        "example": []
                     }
-                ]
+                },
+                "type": "object"
             },
             "UserAppointmentRequestResponse": {
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/SuccessResponse"
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
                     },
-                    {
-                        "properties": {
-                            "status": {
-                                "type": "string",
-                                "example": "success"
-                            },
-                            "message": {
-                                "type": "string",
-                                "example": ""
-                            },
-                            "data": {
-                                "type": "array",
-                                "items": {
-                                    "$ref": "#/components/schemas/AppointmentRequest"
-                                }
-                            }
+                    "message": {
+                        "type": "string",
+                        "example": ""
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AppointmentRequest"
                         }
                     }
-                ]
+                },
+                "type": "object"
             },
             "RegisterBody": {
                 "required": [
                     "phone"
                 ],
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/SuccessResponse"
-                    },
-                    {
-                        "properties": {
-                            "phone": {
-                                "type": "string",
-                                "example": "0741234567"
-                            }
-                        }
+                "properties": {
+                    "phone": {
+                        "type": "string",
+                        "example": "0741234567"
                     }
-                ]
+                },
+                "type": "object"
             },
             "ValidateBody": {
                 "required": [
@@ -1062,52 +1207,38 @@
                     "code",
                     "type"
                 ],
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/SuccessResponse"
+                "properties": {
+                    "code": {
+                        "type": "string",
+                        "example": "glYyo"
                     },
-                    {
-                        "properties": {
-                            "code": {
-                                "type": "string",
-                                "example": "glYyo"
-                            },
-                            "phone": {
-                                "type": "string",
-                                "example": "0741234567"
-                            },
-                            "type": {
-                                "type": "string",
-                                "example": "registration"
-                            }
-                        }
+                    "phone": {
+                        "type": "string",
+                        "example": "0741234567"
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "registration"
                     }
-                ]
+                },
+                "type": "object"
             },
             "PhoneChangeBody": {
                 "required": [
                     "old_phone",
                     "new_phone"
                 ],
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/SuccessResponse"
+                "properties": {
+                    "old_phone": {
+                        "type": "string",
+                        "example": "0741600285"
                     },
-                    {
-                        "properties": {
-                            "old_phone": {
-                                "type": "string",
-                                "example": "0741600285"
-                            },
-                            "new_phone": {
-                                "type": "string",
-                                "example": "0748931362"
-                            }
-                        }
+                    "new_phone": {
+                        "type": "string",
+                        "example": "0748931362"
                     }
-                ]
+                },
+                "type": "object"
             },
             "PhoneChangeValidateBody": {
                 "required": [
@@ -1115,543 +1246,351 @@
                     "code",
                     "type"
                 ],
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/SuccessResponse"
+                "properties": {
+                    "code": {
+                        "type": "string",
+                        "example": "rHYzV"
                     },
-                    {
+                    "phone": {
+                        "type": "string",
+                        "example": "0741200358"
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "change"
+                    }
+                },
+                "type": "object"
+            },
+            "RegisterResponse": {
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Code sent successfully."
+                    },
+                    "data": {
                         "properties": {
-                            "code": {
+                            "code_type": {
                                 "type": "string",
-                                "example": "rHYzV"
-                            },
-                            "phone": {
-                                "type": "string",
-                                "example": "0741200358"
-                            },
-                            "type": {
+                                "example": "registration"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "UserChangeResponse": {
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Code sent successfully."
+                    },
+                    "data": {
+                        "properties": {
+                            "code_type": {
                                 "type": "string",
                                 "example": "change"
                             }
-                        }
+                        },
+                        "type": "object"
                     }
-                ]
-            },
-            "RegisterResponse": {
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/SuccessResponse"
-                    },
-                    {
-                        "properties": {
-                            "status": {
-                                "type": "string",
-                                "example": "success"
-                            },
-                            "message": {
-                                "type": "string",
-                                "example": "Code sent successfully."
-                            },
-                            "data": {
-                                "properties": {
-                                    "code_type": {
-                                        "type": "string",
-                                        "example": "registration"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                ]
-            },
-            "UserChangeResponse": {
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/SuccessResponse"
-                    },
-                    {
-                        "properties": {
-                            "status": {
-                                "type": "string",
-                                "example": "success"
-                            },
-                            "message": {
-                                "type": "string",
-                                "example": "Code sent successfully."
-                            },
-                            "data": {
-                                "properties": {
-                                    "code_type": {
-                                        "type": "string",
-                                        "example": "change"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                ]
+                },
+                "type": "object"
             },
             "UserResponse": {
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/SuccessResponse"
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
                     },
-                    {
-                        "properties": {
-                            "status": {
-                                "type": "string",
-                                "example": "success"
-                            },
-                            "message": {
-                                "type": "string",
-                                "example": ""
-                            },
-                            "data": {
-                                "$ref": "#/components/schemas/User"
-                            }
-                        }
+                    "message": {
+                        "type": "string",
+                        "example": ""
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/User"
                     }
-                ]
+                },
+                "type": "object"
             },
             "ValidateResponse": {
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/SuccessResponse"
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
                     },
-                    {
+                    "message": {
+                        "type": "string",
+                        "example": "Code sent successfully."
+                    },
+                    "data": {
                         "properties": {
-                            "status": {
-                                "type": "string",
-                                "example": "success"
+                            "user": {
+                                "$ref": "#/components/schemas/User"
                             },
-                            "message": {
+                            "access_token": {
                                 "type": "string",
-                                "example": "Code sent successfully."
+                                "example": "1|QU2sClAvTlQ1n1IFDyRsBV4pBvbd4utpy3Il59qK"
                             },
-                            "data": {
-                                "properties": {
-                                    "user": {
-                                        "$ref": "#/components/schemas/User"
-                                    },
-                                    "access_token": {
-                                        "type": "string",
-                                        "example": "1|QU2sClAvTlQ1n1IFDyRsBV4pBvbd4utpy3Il59qK"
-                                    },
-                                    "token_type": {
-                                        "type": "string",
-                                        "example": "bearer"
-                                    },
-                                    "expires_in": {
-                                        "type": "integer",
-                                        "example": "1679836683"
-                                    }
-                                },
-                                "type": "object"
+                            "token_type": {
+                                "type": "string",
+                                "example": "bearer"
+                            },
+                            "expires_in": {
+                                "type": "integer",
+                                "example": "1679836683"
                             }
-                        }
+                        },
+                        "type": "object"
                     }
-                ]
+                },
+                "type": "object"
+            },
+            "LogoutResponse": {
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": ""
+                    },
+                    "data": {
+                        "type": "object",
+                        "example": []
+                    }
+                },
+                "type": "object"
             },
             "CarBody": {
                 "required": [
                     "name"
                 ],
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/SuccessResponse"
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "My Car"
                     },
-                    {
-                        "properties": {
-                            "name": {
-                                "type": "string",
-                                "example": "My Car"
-                            },
-                            "category": {
-                                "type": "string",
-                                "example": "Autoturism/Automobil mixt"
-                            },
-                            "subcategory": {
-                                "type": "string",
-                                "example": "Autoturism"
-                            },
-                            "registration_type": {
-                                "type": "string",
-                                "example": "Inmatriculat"
-                            },
-                            "fuel_type": {
-                                "type": "string",
-                                "example": "Motorina"
-                            },
-                            "vin_number": {
-                                "type": "string",
-                                "example": "WBAAP71111GL33030"
-                            },
-                            "make": {
-                                "type": "string",
-                                "example": "BMW"
-                            },
-                            "model": {
-                                "type": "string",
-                                "example": "Seria 3"
-                            },
-                            "manufacture_year": {
-                                "type": "string",
-                                "example": "2002"
-                            },
-                            "tyre_size": {
-                                "type": "json",
-                                "example": []
-                            },
-                            "motor_power": {
-                                "type": "string",
-                                "example": "110"
-                            },
-                            "cylinder_capacity": {
-                                "type": "string",
-                                "example": "1995"
-                            },
-                            "number_places": {
-                                "type": "string",
-                                "example": "5"
-                            },
-                            "max_per_mass": {
-                                "type": "string",
-                                "example": "1550"
-                            },
-                            "civ_number": {
-                                "type": "string",
-                                "example": "K884163"
-                            },
-                            "description": {
-                                "type": "string",
-                                "example": "My favorite car"
-                            },
-                            "favorite": {
-                                "type": "boolean",
-                                "example": "true"
-                            }
-                        }
+                    "category": {
+                        "type": "string",
+                        "example": "Autoturism/Automobil mixt"
+                    },
+                    "subcategory": {
+                        "type": "string",
+                        "example": "Autoturism"
+                    },
+                    "registration_type": {
+                        "type": "string",
+                        "example": "Inmatriculat"
+                    },
+                    "fuel_type": {
+                        "type": "string",
+                        "example": "Motorina"
+                    },
+                    "vin_number": {
+                        "type": "string",
+                        "example": "WBAAP71111GL33030"
+                    },
+                    "make": {
+                        "type": "string",
+                        "example": "BMW"
+                    },
+                    "model": {
+                        "type": "string",
+                        "example": "Seria 3"
+                    },
+                    "manufacture_year": {
+                        "type": "string",
+                        "example": "2002"
+                    },
+                    "tyre_size": {
+                        "type": "json",
+                        "example": []
+                    },
+                    "motor_power": {
+                        "type": "string",
+                        "example": "110"
+                    },
+                    "cylinder_capacity": {
+                        "type": "string",
+                        "example": "1995"
+                    },
+                    "number_places": {
+                        "type": "string",
+                        "example": "5"
+                    },
+                    "max_per_mass": {
+                        "type": "string",
+                        "example": "1550"
+                    },
+                    "civ_number": {
+                        "type": "string",
+                        "example": "K884163"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "My favorite car"
+                    },
+                    "favorite": {
+                        "type": "boolean",
+                        "example": "true"
                     }
-                ]
+                },
+                "type": "object"
             },
             "CarResponse": {
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/SuccessResponse"
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
                     },
-                    {
-                        "properties": {
-                            "status": {
-                                "type": "string",
-                                "example": "success"
-                            },
-                            "message": {
-                                "type": "string",
-                                "example": ""
-                            },
-                            "data": {
-                                "$ref": "#/components/schemas/Car"
-                            }
-                        }
+                    "message": {
+                        "type": "string",
+                        "example": ""
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/Car"
                     }
-                ]
+                },
+                "type": "object"
             },
             "DeleteCarResponse": {
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/SuccessResponse"
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
                     },
-                    {
-                        "properties": {
-                            "status": {
-                                "type": "string",
-                                "example": "success"
-                            },
-                            "message": {
-                                "type": "string",
-                                "example": ""
-                            },
-                            "data": {
-                                "type": "object",
-                                "example": []
-                            }
-                        }
+                    "message": {
+                        "type": "string",
+                        "example": ""
+                    },
+                    "data": {
+                        "type": "object",
+                        "example": []
                     }
-                ]
+                },
+                "type": "object"
             },
             "UserCarsResponse": {
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/SuccessResponse"
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
                     },
-                    {
-                        "properties": {
-                            "status": {
-                                "type": "string",
-                                "example": "success"
-                            },
-                            "message": {
-                                "type": "string",
-                                "example": ""
-                            },
-                            "data": {
-                                "type": "array",
-                                "items": {
-                                    "properties": {
-                                        "car": {
-                                            "$ref": "#/components/schemas/Car"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
+                    "message": {
+                        "type": "string",
+                        "example": ""
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Car"
                         }
                     }
-                ]
+                },
+                "type": "object"
             },
             "GeneralInfoResponse": {
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/SuccessResponse"
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
                     },
-                    {
+                    "message": {
+                        "type": "string",
+                        "example": "Constants information"
+                    },
+                    "data": {
                         "properties": {
-                            "status": {
-                                "type": "string",
-                                "example": "success"
+                            "car_categories": {
+                                "type": "array",
+                                "items": {},
+                                "example": [
+                                    "Autoturism",
+                                    "Autotractor"
+                                ]
                             },
-                            "message": {
-                                "type": "string",
-                                "example": "Constants information"
+                            "car_sub_categories": {
+                                "type": "array",
+                                "items": {},
+                                "example": [
+                                    "Automobil mixt",
+                                    "SUV"
+                                ]
                             },
-                            "data": {
-                                "properties": {
-                                    "car_categories": {
-                                        "type": "array",
-                                        "items": {},
-                                        "example": [
-                                            "Autoturism",
-                                            "Autotractor"
-                                        ]
-                                    },
-                                    "car_sub_categories": {
-                                        "type": "array",
-                                        "items": {},
-                                        "example": [
-                                            "Automobil mixt",
-                                            "SUV"
-                                        ]
-                                    },
-                                    "car_registration_types": {
-                                        "type": "array",
-                                        "items": {},
-                                        "example": [
-                                            "Inmatriculat",
-                                            "Inregistrat"
-                                        ]
-                                    },
-                                    "car_fuel_types": {
-                                        "type": "array",
-                                        "items": {},
-                                        "example": [
-                                            "Benzina",
-                                            "Motorina"
-                                        ]
-                                    },
-                                    "car_makes": {
-                                        "type": "array",
-                                        "items": {},
-                                        "example": [
-                                            "Audi",
-                                            "BMW"
-                                        ]
-                                    },
-                                    "car_models": {
-                                        "type": "array",
-                                        "items": {},
-                                        "example": [
-                                            "A6",
-                                            "Seria 3"
-                                        ]
-                                    },
-                                    "notification_types": {
-                                        "type": "array",
-                                        "items": {},
-                                        "example": [
-                                            "ITP",
-                                            "RCA"
-                                        ]
-                                    }
-                                },
-                                "type": "object"
+                            "car_registration_types": {
+                                "type": "array",
+                                "items": {},
+                                "example": [
+                                    "Inmatriculat",
+                                    "Inregistrat"
+                                ]
+                            },
+                            "car_fuel_types": {
+                                "type": "array",
+                                "items": {},
+                                "example": [
+                                    "Benzina",
+                                    "Motorina"
+                                ]
+                            },
+                            "car_makes": {
+                                "type": "array",
+                                "items": {},
+                                "example": [
+                                    "Audi",
+                                    "BMW"
+                                ]
+                            },
+                            "car_models": {
+                                "type": "array",
+                                "items": {},
+                                "example": [
+                                    "A6",
+                                    "Seria 3"
+                                ]
+                            },
+                            "notification_types": {
+                                "type": "array",
+                                "items": {},
+                                "example": [
+                                    "ITP",
+                                    "RCA"
+                                ]
                             }
-                        }
+                        },
+                        "type": "object"
                     }
-                ]
+                },
+                "type": "object"
             },
             "NotificationResponse": {
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/SuccessResponse"
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
                     },
-                    {
-                        "properties": {
-                            "status": {
-                                "type": "string",
-                                "example": "success"
-                            },
-                            "message": {
-                                "type": "string",
-                                "example": ""
-                            },
-                            "data": {
-                                "$ref": "#/components/schemas/Notification"
-                            }
-                        }
+                    "message": {
+                        "type": "string",
+                        "example": ""
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/Notification"
                     }
-                ]
+                },
+                "type": "object"
             },
             "DeleteNotificationResponse": {
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/SuccessResponse"
-                    },
-                    {
-                        "properties": {
-                            "status": {
-                                "type": "string",
-                                "example": "success"
-                            },
-                            "message": {
-                                "type": "string",
-                                "example": ""
-                            },
-                            "data": {
-                                "type": "object"
-                            }
-                        }
-                    }
-                ]
-            },
-            "UserNotificationsResponse": {
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/SuccessResponse"
-                    },
-                    {
-                        "properties": {
-                            "status": {
-                                "type": "string",
-                                "example": "success"
-                            },
-                            "message": {
-                                "type": "string",
-                                "example": ""
-                            },
-                            "data": {
-                                "type": "array",
-                                "items": {
-                                    "properties": {
-                                        "": {
-                                            "$ref": "#/components/schemas/Notification"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                ]
-            },
-            "NotificationBody": {
-                "required": [
-                    "car_id",
-                    "type",
-                    "title",
-                    "alert_date"
-                ],
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/SuccessResponse"
-                    },
-                    {
-                        "properties": {
-                            "car_id": {
-                                "type": "integer",
-                                "example": 1
-                            },
-                            "type": {
-                                "type": "string",
-                                "example": "ITP"
-                            },
-                            "title": {
-                                "type": "string",
-                                "example": "Audi ITP"
-                            },
-                            "message": {
-                                "type": "string",
-                                "example": "My message"
-                            },
-                            "alert_date": {
-                                "type": "string",
-                                "example": "2023-06-05 10:00:00"
-                            },
-                            "expiration_date": {
-                                "type": "string",
-                                "example": "2023-06-06 10:00:00"
-                            },
-                            "meta_data": {
-                                "type": "object"
-                            }
-                        }
-                    }
-                ]
-            },
-            "UpdateUserBody": {
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/SuccessResponse"
-                    },
-                    {
-                        "properties": {
-                            "first_name": {
-                                "type": "string",
-                                "example": "George"
-                            },
-                            "last_name": {
-                                "type": "string",
-                                "example": "Tepes"
-                            },
-                            "username": {
-                                "type": "string",
-                                "example": "g_tepes"
-                            },
-                            "email": {
-                                "type": "string",
-                                "example": "tepes@vlad.ro"
-                            }
-                        }
-                    }
-                ]
-            },
-            "SuccessResponse": {
                 "properties": {
                     "status": {
                         "type": "string",
@@ -1663,6 +1602,203 @@
                     },
                     "data": {
                         "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "UserNotificationsResponse": {
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": ""
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Notification"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "NotificationBody": {
+                "required": [
+                    "car_id",
+                    "type",
+                    "title",
+                    "alert_date"
+                ],
+                "properties": {
+                    "car_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "ITP"
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Audi ITP"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "My message"
+                    },
+                    "alert_date": {
+                        "type": "string",
+                        "example": "2023-06-05 10:00:00"
+                    },
+                    "expiration_date": {
+                        "type": "string",
+                        "example": "2023-06-06 10:00:00"
+                    },
+                    "meta_data": {
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateUserBody": {
+                "properties": {
+                    "first_name": {
+                        "type": "string",
+                        "example": "George"
+                    },
+                    "last_name": {
+                        "type": "string",
+                        "example": "Tepes"
+                    },
+                    "username": {
+                        "type": "string",
+                        "example": "g_tepes"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "tepes@vlad.ro"
+                    }
+                },
+                "type": "object"
+            },
+            "DeleteUserResponse": {
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": ""
+                    },
+                    "data": {
+                        "type": "object",
+                        "example": []
+                    }
+                },
+                "type": "object"
+            },
+            "UserImageBodyUpload": {
+                "required": [
+                    "image"
+                ],
+                "properties": {
+                    "image": {
+                        "description": "Multipart form data file",
+                        "type": "string",
+                        "format": "binary"
+                    },
+                    "car_id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "favourite": {
+                        "type": "boolean",
+                        "example": "true"
+                    },
+                    "visible_name": {
+                        "type": "string",
+                        "example": "custom name sdfsdf"
+                    },
+                    "meta_data": {
+                        "type": "object",
+                        "example": []
+                    }
+                },
+                "type": "object"
+            },
+            "UserImageBodyEdit": {
+                "properties": {
+                    "car_id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "favourite": {
+                        "type": "boolean",
+                        "example": "true"
+                    },
+                    "visible_name": {
+                        "type": "string",
+                        "example": "custom name sdfsdf"
+                    },
+                    "meta_data": {
+                        "type": "object",
+                        "example": []
+                    }
+                },
+                "type": "object"
+            },
+            "UserImagesResponse": {
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": ""
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/UserImage"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "UserImageResponse": {
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": ""
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/UserImage"
+                    }
+                },
+                "type": "object"
+            },
+            "DeleteUserImageResponse": {
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": ""
+                    },
+                    "data": {
+                        "type": "object",
+                        "example": []
                     }
                 },
                 "type": "object"
@@ -1885,6 +2021,47 @@
                     "email": {
                         "type": "string",
                         "example": "email@email.com"
+                    }
+                },
+                "type": "object"
+            },
+            "UserImage": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "car_id": {
+                        "type": "integer",
+                        "example": "2"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "myfirstpicture"
+                    },
+                    "visible_name": {
+                        "type": "string",
+                        "example": "custom name sdfsdf"
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "jpg"
+                    },
+                    "size": {
+                        "type": "integer",
+                        "example": "2048"
+                    },
+                    "h_size": {
+                        "type": "string",
+                        "example": "1 MB"
+                    },
+                    "favorite": {
+                        "type": "boolean",
+                        "example": "true"
+                    },
+                    "meta_data": {
+                        "type": "json",
+                        "example": []
                     }
                 },
                 "type": "object"

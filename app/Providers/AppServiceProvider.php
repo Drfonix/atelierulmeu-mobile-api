@@ -8,6 +8,8 @@ use App\Models\Notification;
 use App\Observers\AppointmentRequestObserver;
 use App\Observers\CarObserver;
 use App\Observers\NotificationObserver;
+use App\Services\ImageService;
+use App\Services\SmsService;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -20,7 +22,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(ImageService::class, function ($app) {
+            return new ImageService();
+        });
+        $this->app->bind(SmsService::class, function ($app) {
+            return new SmsService();
+        });
     }
 
     /**

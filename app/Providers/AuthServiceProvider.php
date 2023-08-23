@@ -25,6 +25,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        /**
+         * General user model access authorization
+         */
+        Gate::define('can-access', 'App\Policies\AccessPolicy@access');
     }
 }
