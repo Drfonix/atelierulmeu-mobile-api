@@ -195,8 +195,9 @@ class UserImageController extends Controller
         if(array_key_exists('car_id', $imageData)) {
             $user->checkCarId($imageData["car_id"]);
         }
+        $userImage->update($imageData);
 
-        $response = new UserImageResource($userImage->update($imageData));
+        $response = new UserImageResource($userImage->fresh());
 
         return $this->successResponse($response);
     }
