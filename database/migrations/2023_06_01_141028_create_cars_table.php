@@ -18,10 +18,10 @@ class CreateCarsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('name');
-            $table->string('category')->default(Car::CAR_CATEGORIES[0]);
-            $table->string('subcategory')->default(Car::CAR_SUB_CATEGORIES[0]);
-            $table->string('registration_type')->default(Car::CAR_REGISTRATION_TYPES[0]);
-            $table->string('fuel_type')->default(Car::CAR_FUEL_TYPES[0]);
+            $table->string('category');
+            $table->string('subcategory');
+            $table->string('registration_type');
+            $table->string('fuel_type');
             $table->string('vin_number')->nullable();
             $table->string('make')->nullable();
             $table->string('model')->nullable();

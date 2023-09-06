@@ -14,6 +14,193 @@
         }
     ],
     "paths": {
+        "/alerts/{id}": {
+            "get": {
+                "tags": [
+                    "Alert"
+                ],
+                "summary": "Get user alert by id",
+                "description": "Returns the alert detailed data",
+                "operationId": "96bab35f95c70213c4900107608189eb",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of alert",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Alert response by alert id.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AlertResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Alert"
+                ],
+                "summary": "Update the current alert",
+                "description": "Updates the user alert by id",
+                "operationId": "c6411960c4335180e85008a09457b185",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of alert",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Alert fillable properties",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AlertBody"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated alert response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AlertResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Alert"
+                ],
+                "summary": "Delete the user alert",
+                "description": "Deletes the user alert by id",
+                "operationId": "69b35ba3509d164ee50cd78fea334016",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of alert",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete alert response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DeleteAlertResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            }
+        },
+        "/alerts": {
+            "get": {
+                "tags": [
+                    "Alert"
+                ],
+                "summary": "Get user alerts",
+                "description": "Returns the user related alerts",
+                "operationId": "7c39c7efb7cff1bbb3bd8923d05abde5",
+                "responses": {
+                    "200": {
+                        "description": "The user alerts response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserAlertsResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Alert"
+                ],
+                "summary": "Create new user alert",
+                "description": "Creates a new user related alert",
+                "operationId": "88c7be0afec8db647ecced7ea9378592",
+                "requestBody": {
+                    "description": "Alert fillable properties",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AlertBody"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Alert response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AlertResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            }
+        },
         "/appointments/{id}": {
             "get": {
                 "tags": [
@@ -606,193 +793,6 @@
                 ]
             }
         },
-        "/notifications/{id}": {
-            "get": {
-                "tags": [
-                    "Notification"
-                ],
-                "summary": "Get user notification by id",
-                "description": "Returns the notification detailed data",
-                "operationId": "9cd1492cfb2e03e7ca29dc21ebbce9f6",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Id of notification",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "example": "1"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Notification response by notification id.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/NotificationResponse"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "bearer_Auth": []
-                    }
-                ]
-            },
-            "put": {
-                "tags": [
-                    "Notification"
-                ],
-                "summary": "Update the current notification",
-                "description": "Updates the user notification by id",
-                "operationId": "151388cc957a8aa19bc3aba10b7fe9ca",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Id of notification",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "example": "1"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "description": "Notification fillable properties",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/NotificationBody"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Updated notification response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/NotificationResponse"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "bearer_Auth": []
-                    }
-                ]
-            },
-            "delete": {
-                "tags": [
-                    "Notification"
-                ],
-                "summary": "Delete the user notification",
-                "description": "Deletes the user notification by id",
-                "operationId": "c45b0ae13c892255f8acb67fb481ac8f",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Id of notification",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "example": "1"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Delete notification response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/DeleteNotificationResponse"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "bearer_Auth": []
-                    }
-                ]
-            }
-        },
-        "/notifications": {
-            "get": {
-                "tags": [
-                    "Notification"
-                ],
-                "summary": "Get user notifications",
-                "description": "Returns the user related notifications",
-                "operationId": "4c4c62ede38b4d58cdad5ae89a516a8a",
-                "responses": {
-                    "200": {
-                        "description": "The user notifications response.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/UserNotificationsResponse"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "bearer_Auth": []
-                    }
-                ]
-            },
-            "post": {
-                "tags": [
-                    "Notification"
-                ],
-                "summary": "Create new user notification",
-                "description": "Creates a new user related notification",
-                "operationId": "dfe9686351c9782afdd01984f1e4ad15",
-                "requestBody": {
-                    "description": "Notification fillable properties",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/NotificationBody"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Notification response.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/NotificationResponse"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "bearer_Auth": []
-                    }
-                ]
-            }
-        },
         "/user": {
             "get": {
                 "tags": [
@@ -869,6 +869,186 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/DeleteUserResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            }
+        },
+        "/documents": {
+            "get": {
+                "tags": [
+                    "UserDocument"
+                ],
+                "summary": "Get user documents",
+                "description": "Returns the user documents models",
+                "operationId": "f49c47e0705b082b8bc6cd1338fc4409",
+                "responses": {
+                    "200": {
+                        "description": "The user documents model response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserDocumentsResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "UserDocument"
+                ],
+                "summary": "Upload new user document",
+                "description": "Creates a new user document",
+                "operationId": "a547f943203f500e9c94e7136bed2fae",
+                "requestBody": {
+                    "description": "User document fillable properties",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserDocumentBodyUpload"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User document model response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserDocumentResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            }
+        },
+        "/documents/{id}": {
+            "get": {
+                "tags": [
+                    "UserDocument"
+                ],
+                "summary": "Get user document by id",
+                "description": "Returns the user document. inline/stream",
+                "operationId": "615b4377fcff7fcff83838e32c845175",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of user document",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The document file response"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "UserDocument"
+                ],
+                "summary": "Update the user document",
+                "description": "Update the user document model. (not the file)",
+                "operationId": "a69f13bfb0a4c576e26533791e55fbc0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of user document",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "User document fillable properties",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserDocumentBodyEdit"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User document model response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserDocumentResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "UserDocument"
+                ],
+                "summary": "Delete user document by id",
+                "description": "Delete the user document model and file",
+                "operationId": "c4ab84b9750f65809224b4e32bb61ff5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of user document",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The user document deleted successfull",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DeleteUserDocumentResponse"
                                 }
                             }
                         }
@@ -1064,6 +1244,95 @@
     },
     "components": {
         "schemas": {
+            "AlertResponse": {
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": ""
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/Alert"
+                    }
+                },
+                "type": "object"
+            },
+            "DeleteAlertResponse": {
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": ""
+                    },
+                    "data": {
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "UserAlertsResponse": {
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": ""
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Alert"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "AlertBody": {
+                "required": [
+                    "car_id",
+                    "type",
+                    "title",
+                    "alert_date"
+                ],
+                "properties": {
+                    "car_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "ITP"
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Audi ITP"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "My message"
+                    },
+                    "alert_date": {
+                        "type": "string",
+                        "example": "2023-06-05 10:00:00"
+                    },
+                    "recurrent": {
+                        "type": "string",
+                        "example": "no"
+                    },
+                    "meta_data": {
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
             "AppointmentRequestBody": {
                 "required": [
                     "car_plate_number",
@@ -1512,20 +1781,12 @@
                     },
                     "data": {
                         "properties": {
-                            "car_categories": {
+                            "appointment_statuses": {
                                 "type": "array",
                                 "items": {},
                                 "example": [
-                                    "Autoturism",
-                                    "Autotractor"
-                                ]
-                            },
-                            "car_sub_categories": {
-                                "type": "array",
-                                "items": {},
-                                "example": [
-                                    "Automobil mixt",
-                                    "SUV"
+                                    "new",
+                                    "accepted"
                                 ]
                             },
                             "car_registration_types": {
@@ -1544,120 +1805,79 @@
                                     "Motorina"
                                 ]
                             },
-                            "car_makes": {
-                                "type": "array",
-                                "items": {},
-                                "example": [
-                                    "Audi",
-                                    "BMW"
-                                ]
-                            },
-                            "car_models": {
-                                "type": "array",
-                                "items": {},
-                                "example": [
-                                    "A6",
-                                    "Seria 3"
-                                ]
-                            },
-                            "notification_types": {
+                            "alert_types": {
                                 "type": "array",
                                 "items": {},
                                 "example": [
                                     "ITP",
                                     "RCA"
                                 ]
+                            },
+                            "document_types": {
+                                "type": "array",
+                                "items": {},
+                                "example": [
+                                    "Asigurare",
+                                    "CASCO"
+                                ]
+                            },
+                            "car_categories": {
+                                "type": "array",
+                                "items": {},
+                                "example": [
+                                    {
+                                        "id": 10,
+                                        "name": "Autoturism"
+                                    },
+                                    {
+                                        "id": 9,
+                                        "name": "Autotractor"
+                                    }
+                                ]
+                            },
+                            "car_sub_categories": {
+                                "type": "array",
+                                "items": {},
+                                "example": [
+                                    {
+                                        "parent_id": 3,
+                                        "name": "Automobil mixt"
+                                    },
+                                    {
+                                        "parent_id": 3,
+                                        "name": "SUV"
+                                    }
+                                ]
+                            },
+                            "car_makes": {
+                                "type": "array",
+                                "items": {},
+                                "example": [
+                                    {
+                                        "id": 10,
+                                        "name": "Audi"
+                                    },
+                                    {
+                                        "id": 5,
+                                        "name": "BMW"
+                                    }
+                                ]
+                            },
+                            "car_models": {
+                                "type": "array",
+                                "items": {},
+                                "example": [
+                                    {
+                                        "make_id": 10,
+                                        "name": "A6"
+                                    },
+                                    {
+                                        "make_id": 5,
+                                        "name": "Seria 3"
+                                    }
+                                ]
                             }
                         },
-                        "type": "object"
-                    }
-                },
-                "type": "object"
-            },
-            "NotificationResponse": {
-                "properties": {
-                    "status": {
-                        "type": "string",
-                        "example": "success"
-                    },
-                    "message": {
-                        "type": "string",
-                        "example": ""
-                    },
-                    "data": {
-                        "$ref": "#/components/schemas/Notification"
-                    }
-                },
-                "type": "object"
-            },
-            "DeleteNotificationResponse": {
-                "properties": {
-                    "status": {
-                        "type": "string",
-                        "example": "success"
-                    },
-                    "message": {
-                        "type": "string",
-                        "example": ""
-                    },
-                    "data": {
-                        "type": "object"
-                    }
-                },
-                "type": "object"
-            },
-            "UserNotificationsResponse": {
-                "properties": {
-                    "status": {
-                        "type": "string",
-                        "example": "success"
-                    },
-                    "message": {
-                        "type": "string",
-                        "example": ""
-                    },
-                    "data": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/Notification"
-                        }
-                    }
-                },
-                "type": "object"
-            },
-            "NotificationBody": {
-                "required": [
-                    "car_id",
-                    "type",
-                    "title",
-                    "alert_date"
-                ],
-                "properties": {
-                    "car_id": {
-                        "type": "integer",
-                        "example": 1
-                    },
-                    "type": {
-                        "type": "string",
-                        "example": "ITP"
-                    },
-                    "title": {
-                        "type": "string",
-                        "example": "Audi ITP"
-                    },
-                    "message": {
-                        "type": "string",
-                        "example": "My message"
-                    },
-                    "alert_date": {
-                        "type": "string",
-                        "example": "2023-06-05 10:00:00"
-                    },
-                    "expiration_date": {
-                        "type": "string",
-                        "example": "2023-06-06 10:00:00"
-                    },
-                    "meta_data": {
                         "type": "object"
                     }
                 },
@@ -1685,6 +1905,100 @@
                 "type": "object"
             },
             "DeleteUserResponse": {
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": ""
+                    },
+                    "data": {
+                        "type": "object",
+                        "example": []
+                    }
+                },
+                "type": "object"
+            },
+            "UserDocumentBodyUpload": {
+                "required": [
+                    "document"
+                ],
+                "properties": {
+                    "document": {
+                        "description": "Multipart form data file",
+                        "type": "string",
+                        "format": "binary"
+                    },
+                    "car_id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "Asigurare"
+                    },
+                    "meta_data": {
+                        "type": "object",
+                        "example": []
+                    }
+                },
+                "type": "object"
+            },
+            "UserDocumentBodyEdit": {
+                "properties": {
+                    "car_id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "Asigurare"
+                    },
+                    "meta_data": {
+                        "type": "object",
+                        "example": []
+                    }
+                },
+                "type": "object"
+            },
+            "UserDocumentsResponse": {
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": ""
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/UserDocument"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "UserDocumentResponse": {
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": ""
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/UserDocument"
+                    }
+                },
+                "type": "object"
+            },
+            "DeleteUserDocumentResponse": {
                 "properties": {
                     "status": {
                         "type": "string",
@@ -1797,6 +2111,51 @@
                         "example": ""
                     },
                     "data": {
+                        "type": "object",
+                        "example": []
+                    }
+                },
+                "type": "object"
+            },
+            "Alert": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "user_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "car_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "ITP"
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Audi ITP"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "My message"
+                    },
+                    "alert_date": {
+                        "type": "string",
+                        "example": "2023-06-05 10:00:00"
+                    },
+                    "recurrent": {
+                        "type": "string",
+                        "example": "no"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "active"
+                    },
+                    "meta_data": {
                         "type": "object",
                         "example": []
                     }
@@ -1955,47 +2314,6 @@
                 },
                 "type": "object"
             },
-            "Notification": {
-                "properties": {
-                    "id": {
-                        "type": "integer",
-                        "example": 1
-                    },
-                    "user_id": {
-                        "type": "integer",
-                        "example": 1
-                    },
-                    "car_id": {
-                        "type": "integer",
-                        "example": 1
-                    },
-                    "type": {
-                        "type": "string",
-                        "example": "ITP"
-                    },
-                    "title": {
-                        "type": "string",
-                        "example": "Audi ITP"
-                    },
-                    "message": {
-                        "type": "string",
-                        "example": "My message"
-                    },
-                    "alert_date": {
-                        "type": "string",
-                        "example": "2023-06-05 10:00:00"
-                    },
-                    "expiration_date": {
-                        "type": "string",
-                        "example": "2023-06-06 10:00:00"
-                    },
-                    "meta_data": {
-                        "type": "object",
-                        "example": []
-                    }
-                },
-                "type": "object"
-            },
             "User": {
                 "properties": {
                     "id": {
@@ -2021,6 +2339,39 @@
                     "email": {
                         "type": "string",
                         "example": "email@email.com"
+                    }
+                },
+                "type": "object"
+            },
+            "UserDocument": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "car_id": {
+                        "type": "integer",
+                        "example": "2"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "UCFVYNIJJN_651651616.pdf"
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "Asigurare"
+                    },
+                    "size": {
+                        "type": "integer",
+                        "example": "2048"
+                    },
+                    "h_size": {
+                        "type": "string",
+                        "example": "1 MB"
+                    },
+                    "meta_data": {
+                        "type": "json",
+                        "example": []
                     }
                 },
                 "type": "object"

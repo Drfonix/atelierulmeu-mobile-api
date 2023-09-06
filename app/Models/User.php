@@ -90,11 +90,20 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the documents of users
+     */
+    public function documents()
+    {
+        return $this->hasMany(UserDocument::class, "user_id", "id")
+            ->orderBy('name');
+    }
+
+    /**
      * Get the cars of users
      */
-    public function notifications()
+    public function alerts()
     {
-        return $this->hasMany(Notification::class, "user_id", "id")
+        return $this->hasMany(Alert::class, "user_id", "id")
             ->orderBy('title');
     }
 
@@ -106,7 +115,6 @@ class User extends Authenticatable
     public function checkCarId($carId)
     {
         $car = $this->cars()->where('id', $carId)->first();
-//        dd($carId ,!$car);
         if($carId && !$car) {
             throw new UnauthorizedException("You are not the car owner");
         }

@@ -4,10 +4,10 @@ namespace App\Providers;
 
 use App\Models\AppointmentRequest;
 use App\Models\Car;
-use App\Models\Notification;
+use App\Models\Alert;
 use App\Observers\AppointmentRequestObserver;
 use App\Observers\CarObserver;
-use App\Observers\NotificationObserver;
+use App\Observers\AlertObserver;
 use App\Services\ImageService;
 use App\Services\SmsService;
 use Illuminate\Support\Facades\Schema;
@@ -41,7 +41,7 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         Car::observe(CarObserver::class);
-        Notification::observe(NotificationObserver::class);
+        Alert::observe(AlertObserver::class);
         AppointmentRequest::observe(AppointmentRequestObserver::class);
     }
 }

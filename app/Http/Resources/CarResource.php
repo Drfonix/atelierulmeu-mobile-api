@@ -35,8 +35,9 @@ class CarResource extends JsonResource
             "max_per_mass" => $this->max_per_mass,
             "civ_number" => $this->civ_number,
             "description" => $this->description,
-            "favorite" => $this->favorite,
+            "favorite" => (boolean)$this->favorite,
             "images" => UserImageResource::collection(new UserImageResource($this->images)),
+            "documents" => UserDocumentResource::collection(new UserDocumentResource($this->documents)),
         ];
     }
 }

@@ -31,7 +31,7 @@ class UserResource extends JsonResource
             "phone" => $this->phone,
             "email" => $this->email,
             "cars" => CarResource::collection(new CarResource($this->cars)),
-            "notifications" => NotificationResource::collection(new NotificationResource($this->notifications)),
+            "alerts" => AlertResource::collection(new AlertResource($this->alerts)),
             "appointments" => AppointmentRequestResource::collection(new AppointmentRequestResource(($this->appointments))),
 //            "images" => $this->images,
         ];

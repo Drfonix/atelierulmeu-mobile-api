@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserImageRequest extends FormRequest
+class UserDocumentRequest extends FormRequest
 {
     use AuthorizesRequests {
         authorize as check;
@@ -18,7 +18,7 @@ class UserImageRequest extends FormRequest
      */
     public function authorize()
     {
-        return ($this->user() && $this->check('can-access', $this->userImage));
+        return ($this->user() && $this->check('can-access', $this->userDocument));
     }
 
     /**
@@ -29,23 +29,20 @@ class UserImageRequest extends FormRequest
     public function rules()
     {
         $i = $this->method();
-        if ($i === 'POST' && !$this->userImage) {
+        if ($i === 'POST' && !$this->userDocument) {
             return [
-                'image' => 'required|image|max:10240',
+                'document' => 'required|file|max:5120',
                 'car_id' => 'integer|nullable',
-                'visible_name' => 'string|nullable',
-                'favorite' => 'boolean|nullable',
+                'type' => 'required|string',
                 'meta_data' => 'array|nullable',
             ];
-        } else if($i === "POST" && $this->userImage) {
+        } else if($i === "POST" && $this->userDocument) {
             return [
                 'car_id' => 'integer|nullable',
-                'visible_name' => 'string|nullable',
-                'favorite' => 'boolean|nullable',
+                'type' => 'required|string',
                 'meta_data' => 'array|nullable',
             ];
         }
         return [];
     }
-
 }

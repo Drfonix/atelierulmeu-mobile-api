@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\AlertType;
 use App\Models\AppointmentRequest;
-use App\Models\Car;
+use App\Models\CarCategory;
+use App\Models\CarFuelType;
 use App\Models\CarMake;
 use App\Models\CarModel;
-use App\Models\Notification;
+use App\Models\CarRegistrationType;
+use App\Models\CarSubCategory;
+use App\Models\DocumentType;
+use App\Models\RecurrentType;
 use App\Services\ImageService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -18,15 +23,16 @@ use Illuminate\Http\Request;
  * @OA\Property(property="status", type="string", example="success"),
  * @OA\Property(property="message", type="string", example="Constants information"),
  * @OA\Property(property="data", type="object",
- * @OA\Property(property="car_categories", type="array", example={"Autoturism","Autotractor"},@OA\Items()),
- * @OA\Property(property="car_sub_categories", type="array", example={"Automobil mixt","SUV"},@OA\Items()),
+ * @OA\Property(property="appointment_statuses", type="array", example={"new","accepted"},@OA\Items()),
  * @OA\Property(property="car_registration_types", type="array", example={"Inmatriculat","Inregistrat"},@OA\Items()),
  * @OA\Property(property="car_fuel_types", type="array", example={"Benzina","Motorina"},@OA\Items()),
- * @OA\Property(property="car_makes", type="array", example={"Audi","BMW"},@OA\Items()),
- * @OA\Property(property="car_models", type="array", example={"A6", "Seria 3"},@OA\Items()),
- * @OA\Property(property="notification_types", type="array", example={"ITP","RCA"},@OA\Items()),
- * )
- * )
+ * @OA\Property(property="alert_types", type="array", example={"ITP","RCA"},@OA\Items()),
+ * @OA\Property(property="document_types", type="array", example={"Asigurare","CASCO"},@OA\Items()),
+ * @OA\Property(property="car_categories", type="array", example={{"id": 10, "name": "Autoturism"},{"id": 9, "name": "Autotractor"}},@OA\Items()),
+ * @OA\Property(property="car_sub_categories", type="array", example={{"parent_id": 3, "name": "Automobil mixt"},{"parent_id": 3, "name": "SUV"}},@OA\Items()),
+ * @OA\Property(property="car_makes", type="array", example={{"id": 10, "name":"Audi"},{"id": 5, "name":"BMW"}},@OA\Items()),
+ * @OA\Property(property="car_models", type="array", example={{"make_id": 10, "name":"A6"}, {"make_id": 5, "name":"Seria 3"}},@OA\Items()),
+ * ))
  *
  * Class GeneralController
  * @package App\Http\Controllers\API
@@ -68,18 +74,20 @@ class GeneralController extends Controller
 
         $response = [
             "appointment_statuses" => AppointmentRequest::STATUS,
-            "car_categories" => Car::CAR_CATEGORIES,
-            "car_sub_categories" => Car::CAR_SUB_CATEGORIES,
-            "car_registration_types" => Car::CAR_REGISTRATION_TYPES,
-            "car_fuel_types" => Car::CAR_FUEL_TYPES,
-            "notification_types" => Notification::NOTIFICATION_TYPES,
+            "car_registration_types" => CarRegistrationType::all()->pluck('name'),
+            "car_fuel_types" => CarFuelType::all()->pluck('name'),
+            "alert_types" => AlertType::all()->pluck('name'),
+            "document_types" => DocumentType::all()->pluck('name'),
+            "car_categories" => CarCategory::all(),
+            "car_sub_categories" => CarSubCategory::all(),
+            "recurrent_types" => RecurrentType::all(),
             "car_makes" => $carMakes,
             "car_models" => $carModels,
         ];
 
-        $userFilesDiskInfo = $this->imageService->getUserFilesAndSizes($request->user());
+//        $userFilesDiskInfo = $this->imageService->getUserFilesAndSizes($request->user());
 
-        return $this->successResponse(array_merge($response, $userFilesDiskInfo));
+        return $this->successResponse($response);
     }
 
 }

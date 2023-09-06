@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @OA\Schema(type="object",
@@ -32,26 +33,6 @@ use Illuminate\Database\Eloquent\Model;
 class Car extends Model
 {
     use HasFactory;
-
-    public const CAR_CATEGORIES = [
-        "Autoturism/Automobil mixt", "Autorulota", "Autovehicul transport persoane",
-        "Autovehicul transport marfa", "Autotractor", "Tractor rutier",
-        "Motocicleta/Moped/Atv"
-    ];
-
-    public const CAR_SUB_CATEGORIES = [
-        "Automobil mixt", "Autoturism", "Autoturism de teren", "SUV"
-    ];
-
-    public const CAR_REGISTRATION_TYPES = [
-        "Inmatriculat", "Inregistrat", "In vederea inmatricularii", "In vederea inregistrari"
-    ];
-
-    public const CAR_FUEL_TYPES = [
-        "Benzina", "Motorina","Electric","Benzina si GPL","Benzina si alcool","Hybrid benzina",
-        "Hybrid motorina", "Fara", "Altul"
-    ];
-
 
     /**
      * The attributes that are mass assignable.
@@ -112,10 +93,20 @@ class Car extends Model
     /**
      * Gets car images
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function images()
     {
         return $this->hasMany(UserImage::class, "car_id", "id");
+    }
+
+    /**
+     * Gets car documents
+     *
+     * @return HasMany
+     */
+    public function documents()
+    {
+        return $this->hasMany(UserDocument::class, "car_id", "id");
     }
 }

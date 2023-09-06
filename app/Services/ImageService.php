@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\User;
+use App\Models\UserDocument;
 use App\Models\UserImage;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Support\Facades\File;
@@ -38,7 +39,7 @@ class ImageService
      * @param string $imagePath
      * @throws FileNotFoundException
      */
-    public function checkImagePaths(string $filePath, string $imagePath)
+    public function checkFilePaths(string $filePath, string $imagePath)
     {
         if(!File::exists($filePath) || !Storage::disk(self::DISK)->exists($imagePath)) {
             throw new FileNotFoundException("User file not found");
@@ -49,23 +50,23 @@ class ImageService
      * Save the image and create userImage model data
      *
      * @param $userId
-     * @param $image
+     * @param $file
      * @return array
      */
-    protected function createImage($userId, $image)
+    protected function createFile($userId, $file)
     {
-        $ext = $image->getClientOriginalExtension();
+        $ext = $file->getClientOriginalExtension();
         $imageName = Str::random(6) . '_' . time() . '.' . $ext;
 
-        Storage::disk(self::DISK)->putFileAs(get_user_folder($userId), $image, $imageName);
+        Storage::disk(self::DISK)->putFileAs(get_user_folder($userId), $file, $imageName);
 
         return [
             'user_id' => $userId,
             'name' => $imageName,
-            'visible_name' => $image->getClientOriginalName(),
+            'visible_name' => $file->getClientOriginalName(),
             'type' => $ext,
-            'size' => $image->getSize(),
-            'h_size' => get_readable_file_size($image->getSize())
+            'size' => $file->getSize(),
+            'h_size' => get_readable_file_size($file->getSize())
         ];
     }
 
@@ -83,7 +84,7 @@ class ImageService
         $carId = array_key_exists("car_id", $imageData) ? $imageData['car_id'] : null;
 
         $this->checkAndCreateUserFolder($user->id);
-        $modelData = $this->createImage($user->id, $image);
+        $modelData = $this->createFile($user->id, $image);
 
         if($carId) {
             $user->checkCarId($carId);
@@ -91,6 +92,30 @@ class ImageService
         }
 
         return UserImage::create(array_merge($modelData, $imageData));
+    }
+
+    /**
+     * Uploads a new user image
+     *
+     * @param User $user
+     * @param $documentData
+     * @param $document
+     * @return mixed
+     * @throws FileNotFoundException
+     */
+    public function uploadDocument(User $user, $documentData, $document)
+    {
+        $carId = array_key_exists("car_id", $documentData) ? $documentData['car_id'] : null;
+
+        $this->checkAndCreateUserFolder($user->id);
+        $modelData = $this->createFile($user->id, $document);
+
+        if($carId) {
+            $user->checkCarId($carId);
+            $modelData["car_id"] = $carId;
+        }
+
+        return UserDocument::create(array_merge($modelData, $documentData));
     }
 
     /**
@@ -106,6 +131,21 @@ class ImageService
             Storage::disk(self::DISK)->delete($imagePath["image"]);
         }
         $userImage->delete();
+    }
+
+    /**
+     * Delete the user image object and file
+     *
+     * @param UserDocument $userDocument
+     */
+    public function deleteUserDocument(UserDocument $userDocument)
+    {
+        $imagePath = get_image_paths($userDocument);
+
+        if(File::exists($imagePath["file"])) {
+            Storage::disk(self::DISK)->delete($imagePath["image"]);
+        }
+        $userDocument->delete();
     }
 
     /**

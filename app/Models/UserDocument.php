@@ -6,21 +6,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @OA\Schema(type="object",schema="UserImage",
+ * @OA\Schema(type="object",schema="UserDocument",
  * @OA\Property(property="id",type="integer",example=1),
  * @OA\Property(property="car_id",type="integer",example="2"),
- * @OA\Property(property="name",type="string",example="myfirstpicture"),
- * @OA\Property(property="visible_name",type="string",example="custom name sdfsdf"),
- * @OA\Property(property="type",type="string",example="jpg"),
+ * @OA\Property(property="name",type="string",example="UCFVYNIJJN_651651616.pdf"),
+ * @OA\Property(property="type",type="string",example="Asigurare"),
  * @OA\Property(property="size",type="integer",example="2048"),
  * @OA\Property(property="h_size",type="string",example="1 MB"),
- * @OA\Property(property="favorite",type="boolean",example="true"),
  * @OA\Property(property="meta_data",type="json",example={}),
  * )
- * Class UserImage
+ * Class UserDocument
  * @package App\Models
+ *
  */
-class UserImage extends Model
+class UserDocument extends Model
 {
     use HasFactory;
 
@@ -33,11 +32,9 @@ class UserImage extends Model
         'user_id',
         'car_id',
         'name',
-        'visible_name',
         'type',
         'size',
         'h_size',
-        'favorite',
         'meta_data',
     ];
 
@@ -61,7 +58,6 @@ class UserImage extends Model
         'user_id' => 'integer',
         'car_id' => 'integer',
         'size' => 'integer',
-        'favorite' => 'boolean',
         'meta_data' => 'json'
     ];
 

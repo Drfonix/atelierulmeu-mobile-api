@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Http\FormRequest;
 
-class NotificationRequest extends FormRequest
+class AlertRequest extends FormRequest
 {
     use AuthorizesRequests {
         authorize as check;
@@ -18,7 +18,7 @@ class NotificationRequest extends FormRequest
      */
     public function authorize()
     {
-        return ($this->user() && $this->check('can-access', $this->notification));
+        return ($this->user() && $this->check('can-access', $this->alert));
     }
 
     /**
@@ -37,7 +37,7 @@ class NotificationRequest extends FormRequest
                     'title' => ['string'],
                     'alert_date' => ['string'],
                     'message' => ['string', 'nullable'],
-                    'expiration_date' => ['string', 'nullable'],
+                    'recurrent' => ['string', 'nullable'],
                     'meta_data' => ['array', 'nullable'],
                 ];
             default:

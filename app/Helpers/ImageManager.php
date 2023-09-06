@@ -46,12 +46,12 @@ if (!function_exists('get_user_folder')) {
 
 if (!function_exists('get_image_paths')) {
     /**
-     * @param UserImage $userImage
+     * @param object $userFile
      * @return array
      */
-    function get_image_paths(UserImage $userImage)
+    function get_image_paths($userFile)
     {
-        $imagePath = get_user_folder($userImage->user_id) . DIRECTORY_SEPARATOR . $userImage->name;
+        $imagePath = get_user_folder($userFile->user_id) . DIRECTORY_SEPARATOR . $userFile->name;
         $storagePath  = get_images_storage_path();
         $filePath = $storagePath . $imagePath;
 

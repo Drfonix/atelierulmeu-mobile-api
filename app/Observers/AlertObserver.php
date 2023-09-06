@@ -3,21 +3,21 @@
 namespace App\Observers;
 
 use App\Events\GeneralEvent;
-use App\Models\Notification;
+use App\Models\Alert;
 
-class NotificationObserver
+class AlertObserver
 {
     /**
      * Handle the  "created" event.
      *
-     * @param Notification $notification
+     * @param Alert $alert
      * @return void
      */
-    public function created(Notification $notification)
+    public function created(Alert $alert)
     {
 //        event(
 //            new GeneralEvent(
-//                $notification->user_id, $notification,
+//                $alert->user_id, $alert,
 //                GeneralEvent::EVENT_TYPES["CREATED"],
 //                GeneralEvent::MODEL_NAMES["NOTIFICATION"],
 //            )
@@ -27,14 +27,14 @@ class NotificationObserver
     /**
      * Handle the  "updated" event.
      *
-     * @param Notification $notification
+     * @param Alert $alert
      * @return void
      */
-    public function updated(Notification $notification)
+    public function updated(Alert $alert)
     {
 //        event(
 //            new GeneralEvent(
-//                $notification->user_id, $notification,
+//                $alert->user_id, $alert,
 //                GeneralEvent::EVENT_TYPES["UPDATED"],
 //                GeneralEvent::MODEL_NAMES["NOTIFICATION"],
 //            )
@@ -44,14 +44,14 @@ class NotificationObserver
     /**
      * Handle the  "deleted" event.
      *
-     * @param Notification $notification
+     * @param Alert $alert
      * @return void
      */
-    public function deleted(Notification $notification)
+    public function deleted(Alert $alert)
     {
 //        event(
 //            new GeneralEvent(
-//                $notification->user_id, $notification,
+//                $alert->user_id, $alert,
 //                GeneralEvent::EVENT_TYPES["DELETED"],
 //                GeneralEvent::MODEL_NAMES["NOTIFICATION"],
 //            )
@@ -61,10 +61,10 @@ class NotificationObserver
     /**
      * Handle the  "restored" event.
      *
-     * @param Notification $notification
+     * @param Alert $alert
      * @return void
      */
-    public function restored(Notification $notification)
+    public function restored(Alert $alert)
     {
         //
     }
@@ -72,10 +72,10 @@ class NotificationObserver
     /**
      * Handle the  "force deleted" event.
      *
-     * @param Notification $notification
+     * @param Alert $alert
      * @return void
      */
-    public function forceDeleted(Notification $notification)
+    public function forceDeleted(Alert $alert)
     {
         //
     }

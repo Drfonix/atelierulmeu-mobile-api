@@ -14,20 +14,21 @@ use Illuminate\Database\Eloquent\Model;
  * @OA\Property(property="title",type="string",example="Audi ITP"),
  * @OA\Property(property="message",type="string",example="My message"),
  * @OA\Property(property="alert_date",type="string",example="2023-06-05 10:00:00"),
- * @OA\Property(property="expiration_date",type="string",example="2023-06-06 10:00:00"),
+ * @OA\Property(property="recurrent",type="string",example="no"),
+ * @OA\Property(property="status",type="string",example="active"),
  * @OA\Property(property="meta_data",type="object",example={}),
  * )
- * Class Notification
+ * Class Alert
  * @package App\Models
  */
-class Notification extends Model
+class Alert extends Model
 {
     use HasFactory;
 
-    public const NOTIFICATION_TYPES = [
-        "ITP", "RCA","Vinieta","Cauciucuri","Custom",
-        "Asigurare de calatorie","Buletin","Permis de conducere"
-    ];
+    protected $table = "alerts";
+
+    public const STATUS_ACTIVE = "active";
+    public const STATUS_ARCHIVED = "archived";
 
     /**
      * The attributes that are mass assignable.
@@ -41,7 +42,8 @@ class Notification extends Model
         'title',
         'message',
         'alert_date',
-        'expiration_date',
+        'recurrent',
+        'status',
         'meta_data',
     ];
 
@@ -65,7 +67,6 @@ class Notification extends Model
         'car_id' => 'integer',
         'updated_at' => 'datetime',
         'alert_date' => 'datetime',
-        'expiration_date' => 'datetime',
         'meta_data' => 'json',
     ];
 

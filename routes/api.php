@@ -46,17 +46,23 @@ Route::prefix('/v1')->group(function() {
             Route::put('/appointments/{appointment}', 'App\Http\Controllers\API\AppointmentRequestController@updateUserAppointment')->name('appointment.update');
             Route::delete('/appointments/{appointment}', 'App\Http\Controllers\API\AppointmentRequestController@deleteUserAppointment')->name('appointment.delete');
 
-            Route::get('/notifications/{notification}', 'App\Http\Controllers\API\NotificationController@getNotificationById')->name('notification.notification-by-id');
-            Route::get('/notifications', 'App\Http\Controllers\API\NotificationController@getUserNotifications')->name('notification.user-notifications');
-            Route::post('/notifications', 'App\Http\Controllers\API\NotificationController@createUserNotification')->name('notification.create');
-            Route::put('/notifications/{notification}', 'App\Http\Controllers\API\NotificationController@updateUserNotification')->name('notification.update');
-            Route::delete('/notifications/{notification}', 'App\Http\Controllers\API\NotificationController@deleteUserNotification')->name('notification.delete');
+            Route::get('/alerts/{alert}', 'App\Http\Controllers\API\AlertController@getAlertById')->name('alert.by-id');
+            Route::get('/alerts', 'App\Http\Controllers\API\AlertController@getUserAlerts')->name('alert.user-alerts');
+            Route::post('/alerts', 'App\Http\Controllers\API\AlertController@createUserAlert')->name('alert.create');
+            Route::put('/alerts/{alert}', 'App\Http\Controllers\API\AlertController@updateUserAlert')->name('alert.update');
+            Route::delete('/alerts/{alert}', 'App\Http\Controllers\API\AlertController@deleteUserAlert')->name('alert.delete');
 
             Route::post('/images', 'App\Http\Controllers\API\UserImageController@postUploadUserImage');
             Route::get('/images', 'App\Http\Controllers\API\UserImageController@getUserImages');
             Route::post('/images/{userImage}', 'App\Http\Controllers\API\UserImageController@postEditImage');
             Route::delete('/images/{userImage}', 'App\Http\Controllers\API\UserImageController@deleteImage');
             Route::get('/images/{userImage}', 'App\Http\Controllers\API\UserImageController@getViewImage');
+
+            Route::post('/documents', 'App\Http\Controllers\API\UserDocumentController@postUploadUserDocument');
+            Route::get('/documents', 'App\Http\Controllers\API\UserDocumentController@getUserDocuments');
+            Route::post('/documents/{userDocument}', 'App\Http\Controllers\API\UserDocumentController@postEditDocument');
+            Route::delete('/documents/{userDocument}', 'App\Http\Controllers\API\UserDocumentController@deleteDocument');
+            Route::get('/documents/{userDocument}', 'App\Http\Controllers\API\UserDocumentController@getViewDocument');
         });
     });
 });

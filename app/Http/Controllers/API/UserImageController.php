@@ -124,7 +124,7 @@ class UserImageController extends Controller
     {
         $imagePaths = get_image_paths($userImage);
 
-        $this->imageService->checkImagePaths($imagePaths["file"], $imagePaths["image"]);
+        $this->imageService->checkFilePaths($imagePaths["file"], $imagePaths["image"]);
 
         $headers = get_file_response_headers($imagePaths["image"]);
         $headers["Content-Disposition"] = "inline; filename=" . $userImage->name;
