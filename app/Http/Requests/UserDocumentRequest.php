@@ -34,7 +34,7 @@ class UserDocumentRequest extends FormRequest
                 'document' => 'required|file|max:5120',
                 'car_id' => 'integer|nullable',
                 'type' => 'required|string',
-                'meta_data' => 'array|nullable',
+                'meta_data' => 'json|nullable',
             ];
         } else if($i === "POST" && $this->userDocument) {
             return [

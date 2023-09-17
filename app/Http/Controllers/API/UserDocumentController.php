@@ -80,11 +80,15 @@ class UserDocumentController extends Controller
      * )
      * @param UserDocumentRequest $request
      * @return JsonResponse
+     * @throws \JsonException
      */
     public function postUploadUserDocument(UserDocumentRequest $request)
     {
         $documentData = $request->safe()->except("document");
         $document = $request->safe()->only("document")["document"];
+        if(array_key_exists("meta_data", $documentData) && $documentData["meta_data"]) {
+            $documentData["meta_data"] = json_decode($documentData["meta_data"], true, 512, JSON_THROW_ON_ERROR);
+        }
 
         $user = $request->user();
         $userDocument = $this->imageService->uploadDocument($user, $documentData, $document);
@@ -184,6 +188,7 @@ class UserDocumentController extends Controller
      * @param UserDocumentRequest $request
      * @param UserDocument $userDocument
      * @return JsonResponse
+     * @throws \JsonException
      */
     public function postEditDocument(UserDocumentRequest $request, UserDocument $userDocument)
     {

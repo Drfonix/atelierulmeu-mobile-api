@@ -41,7 +41,7 @@ class ImageService
      */
     public function checkFilePaths(string $filePath, string $imagePath)
     {
-        if(!File::exists($filePath) || !Storage::disk(self::DISK)->exists($imagePath)) {
+        if(!Storage::disk(self::DISK)->exists($imagePath)) {
             throw new FileNotFoundException("User file not found");
         }
     }

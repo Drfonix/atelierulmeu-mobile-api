@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Exceptions\PostTooLargeException;
@@ -109,7 +110,7 @@ class Handler extends ExceptionHandler
             $response['message'] = 'The request size is too large';
         }
 
-        if($exception instanceof UnauthorizedException) {
+        if($exception instanceof UnauthorizedException || $exception instanceof FileNotFoundException) {
             $response['message'] = $exception->getMessage();
         }
 
