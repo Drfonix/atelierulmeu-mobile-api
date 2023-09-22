@@ -31,14 +31,15 @@ use Illuminate\Http\Request;
  * )
  *
  * @OA\Schema(type="object",schema="AlertBody",
- * required={"car_id", "type", "title", "alert_date"},
+ * required={"car_id", "type", "alert_date"},
  * @OA\Property(property="car_id",type="integer",example=1),
  * @OA\Property(property="type",type="string",example="ITP"),
  * @OA\Property(property="title",type="string",example="Audi ITP"),
  * @OA\Property(property="message",type="string",example="My message"),
- * @OA\Property(property="alert_date",type="string",example="2023-06-05 10:00:00"),
+ * @OA\Property(property="alert_date",type="string",example="2023-06-05"),
  * @OA\Property(property="recurrent",type="string",example="no"),
  * @OA\Property(property="meta_data",type="object"),
+ * @OA\Property(property="price",type="decimal", exaple="10.5"),
  * )
  *
  * Class AlertController

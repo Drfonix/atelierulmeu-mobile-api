@@ -34,11 +34,12 @@ class AlertRequest extends FormRequest
                 return [
                     'car_id' => ['integer'],
                     'type' => ['string'],
-                    'title' => ['string'],
                     'alert_date' => ['string'],
+                    'title' => ['string', 'nullable'],
                     'message' => ['string', 'nullable'],
                     'recurrent' => ['string', 'nullable'],
                     'meta_data' => ['array', 'nullable'],
+                    'price' => ['numeric'],
                 ];
             default:
                 return [];

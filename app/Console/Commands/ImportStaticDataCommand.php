@@ -35,7 +35,7 @@ class ImportStaticDataCommand extends Command
 
     protected $alertTypes = [
         "ITP", "RCA","RO-Vinieta","CASCO", "Revizie", "Plata impozit", "Verificare ulei",
-        "Extinctor", "Trusa medicala", "Permis de conducere",
+        "Extinctor", "Trusa medicala",
     ];
 
     protected $recurrentTypes = [

@@ -13,10 +13,11 @@ use Illuminate\Database\Eloquent\Model;
  * @OA\Property(property="type",type="string",example="ITP"),
  * @OA\Property(property="title",type="string",example="Audi ITP"),
  * @OA\Property(property="message",type="string",example="My message"),
- * @OA\Property(property="alert_date",type="string",example="2023-06-05 10:00:00"),
+ * @OA\Property(property="alert_date",type="string",example="2023-06-05"),
  * @OA\Property(property="recurrent",type="string",example="no"),
  * @OA\Property(property="status",type="string",example="active"),
  * @OA\Property(property="meta_data",type="object",example={}),
+ * @OA\Property(property="price",type="decimal", exaple="10.5"),
  * )
  * Class Alert
  * @package App\Models
@@ -45,6 +46,7 @@ class Alert extends Model
         'recurrent',
         'status',
         'meta_data',
+        'price'
     ];
 
     /**
@@ -66,8 +68,9 @@ class Alert extends Model
         'user_id' => 'integer',
         'car_id' => 'integer',
         'updated_at' => 'datetime',
-        'alert_date' => 'datetime',
+        'created_at' => 'datetime',
         'meta_data' => 'json',
+        'price' => 'float'
     ];
 
     /**

@@ -28,6 +28,7 @@ class AlertResource extends JsonResource
           "recurrent" => $this->recurrent,
           "status" => $this->status,
           "meta_data" => $this->meta_data,
+          "price" => $this->price,
         ];
     }
 }
