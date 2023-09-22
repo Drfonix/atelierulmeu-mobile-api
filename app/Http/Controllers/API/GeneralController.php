@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Alert;
 use App\Models\AlertType;
 use App\Models\AppointmentRequest;
 use App\Models\CarCategory;
@@ -72,11 +73,19 @@ class GeneralController extends Controller
         $carMakes = CarMake::query()->select("id","name")->get();
         $carModels = CarModel::query()->select("make_id","name")->get();
 
+        $user = $request->user();
+        $generalAlertTypes = AlertType::all()->pluck('name');
+
+        $userCustomAlertTypes = Alert::query()->where('user_id', $user->id)
+            ->distinct()->pluck('type');
+
+        $alertTypes = $generalAlertTypes->merge($userCustomAlertTypes)->unique()->sort()->values();
+
         $response = [
             "appointment_statuses" => AppointmentRequest::STATUS,
             "car_registration_types" => CarRegistrationType::all()->pluck('name'),
             "car_fuel_types" => CarFuelType::all()->pluck('name'),
-            "alert_types" => AlertType::all()->pluck('name'),
+            "alert_types" => $alertTypes,
             "document_types" => DocumentType::all()->pluck('name'),
             "car_categories" => CarCategory::all(),
             "car_sub_categories" => CarSubCategory::all(),

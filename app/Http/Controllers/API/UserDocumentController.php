@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserDocumentRequest;
 use App\Http\Resources\UserDocumentResource;
 use App\Models\UserDocument;
+use App\Services\AlertService;
 use App\Services\ImageService;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Http\JsonResponse;
@@ -55,9 +56,15 @@ class UserDocumentController extends Controller
      */
     protected ImageService $imageService;
 
-    public function __construct(ImageService $imageService)
+    /**
+     * @var AlertService
+     */
+    protected AlertService $alertService;
+
+    public function __construct(ImageService $imageService, AlertService $alertService)
     {
         $this->imageService = $imageService;
+        $this->alertService = $alertService;
     }
 
     /**
@@ -95,6 +102,7 @@ class UserDocumentController extends Controller
 
         $response = new UserDocumentResource($userDocument);
 
+        $this->alertService->createAlertFromUserDocument($user, $documentData);
         return $this->successResponse($response);
     }
 
