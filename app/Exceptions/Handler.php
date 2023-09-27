@@ -117,7 +117,18 @@ class Handler extends ExceptionHandler
         if(property_exists($exception,"getStatusCode")) {
             $statusCode = $exception->getStatusCode();
         }
-//        dd($exception, $statusCode, $response);
+
+        $exceptionClass = get_class($exception);
+
+        $devMessage = [
+            'file' => $exception->getFile(),
+            'line' => $exception->getLine(),
+            'exceptionClass' => $exceptionClass,
+            'message' => $exception->getMessage(),
+            'trace' => $exception->getTraceAsString()
+        ];
+
+        $response["dev"] = $devMessage;
 
         return response()->json($response, $statusCode);
     }
