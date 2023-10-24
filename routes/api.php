@@ -22,8 +22,8 @@ Route::prefix('/v1')->group(function() {
         Route::post('/register','App\Http\Controllers\API\AuthController@register')->name('auth.register');
         Route::post('/validate','App\Http\Controllers\API\AuthController@validateCode')->name('auth.validate-code');
 
+        // protected routes
         Route::middleware('auth:sanctum')->group(function () {
-            // protected routes
             Route::post('/logout', 'App\Http\Controllers\API\AuthController@logout')->name('auth.logout');
             Route::get('/user', 'App\Http\Controllers\API\UserController@getCurrentUser')->name('user.current');
             Route::put('/user', 'App\Http\Controllers\API\UserController@updateUser')->name('user.current-update');
@@ -63,6 +63,9 @@ Route::prefix('/v1')->group(function() {
             Route::post('/documents/{userDocument}', 'App\Http\Controllers\API\UserDocumentController@postEditDocument');
             Route::delete('/documents/{userDocument}', 'App\Http\Controllers\API\UserDocumentController@deleteDocument');
             Route::get('/documents/{userDocument}', 'App\Http\Controllers\API\UserDocumentController@getViewDocument');
+
+
+            Route::get('/calendar', 'App\Http\Controllers\API\CalendarController@getCalendarData');
         });
     });
 });

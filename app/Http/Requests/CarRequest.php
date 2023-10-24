@@ -32,7 +32,8 @@ class CarRequest extends FormRequest
             case 'POST':
             case 'PUT':
                 return [
-                    'name' => ['string'],
+                    'name' => ['string', "nullable"],
+                    'plate_number' => ['string', 'nullable'],
                     'category' => ['string', 'nullable'],
                     'subcategory' => ['string', 'nullable'],
                     'registration_type' => ['string', 'nullable'],

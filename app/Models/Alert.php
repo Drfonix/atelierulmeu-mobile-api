@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @OA\Property(property="recurrent",type="string",example="no"),
  * @OA\Property(property="status",type="string",example="active"),
  * @OA\Property(property="meta_data",type="object",example={}),
- * @OA\Property(property="price",type="decimal", exaple="10.5"),
+ * @OA\Property(property="price",type="integer", example="10.5"),
  * )
  * Class Alert
  * @package App\Models

@@ -579,6 +579,33 @@
                 ]
             }
         },
+        "/calendar": {
+            "get": {
+                "tags": [
+                    "Calendar"
+                ],
+                "summary": "Get user events and appointments",
+                "description": "Returns the user related events/appointments",
+                "operationId": "72384370117fafdd3657edb6324ea036",
+                "responses": {
+                    "200": {
+                        "description": "Flat array of evenst and appointments",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CalendarResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            }
+        },
         "/cars/{id}": {
             "get": {
                 "tags": [
@@ -1299,7 +1326,6 @@
                 "required": [
                     "car_id",
                     "type",
-                    "title",
                     "alert_date"
                 ],
                 "properties": {
@@ -1321,7 +1347,7 @@
                     },
                     "alert_date": {
                         "type": "string",
-                        "example": "2023-06-05 10:00:00"
+                        "example": "2023-06-05"
                     },
                     "recurrent": {
                         "type": "string",
@@ -1329,6 +1355,10 @@
                     },
                     "meta_data": {
                         "type": "object"
+                    },
+                    "price": {
+                        "type": "integer",
+                        "example": "10.5"
                     }
                 },
                 "type": "object"
@@ -1641,14 +1671,67 @@
                 },
                 "type": "object"
             },
+            "CalendarData": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "section": {
+                        "type": "string",
+                        "example": "EVENT|APPOINTMENT"
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "ITP"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "new"
+                    },
+                    "car_plate_number": {
+                        "type": "string",
+                        "example": "BV 01 ABC"
+                    },
+                    "car_make_model": {
+                        "type": "string",
+                        "example": "BMW Seria 3"
+                    },
+                    "date": {
+                        "type": "string",
+                        "example": "2020-10-30"
+                    }
+                },
+                "type": "object"
+            },
+            "CalendarResponse": {
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": ""
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CalendarData"
+                        }
+                    }
+                },
+                "type": "object"
+            },
             "CarBody": {
-                "required": [
-                    "name"
-                ],
                 "properties": {
                     "name": {
                         "type": "string",
                         "example": "My Car"
+                    },
+                    "plate_number": {
+                        "type": "string",
+                        "example": "BV 01 ABC"
                     },
                     "category": {
                         "type": "string",
@@ -2145,7 +2228,7 @@
                     },
                     "alert_date": {
                         "type": "string",
-                        "example": "2023-06-05 10:00:00"
+                        "example": "2023-06-05"
                     },
                     "recurrent": {
                         "type": "string",
@@ -2158,6 +2241,10 @@
                     "meta_data": {
                         "type": "object",
                         "example": []
+                    },
+                    "price": {
+                        "type": "integer",
+                        "example": "10.5"
                     }
                 },
                 "type": "object"
@@ -2246,6 +2333,10 @@
                     "name": {
                         "type": "string",
                         "example": "My Car"
+                    },
+                    "plate_number": {
+                        "type": "string",
+                        "example": "CJ 01 ABC"
                     },
                     "category": {
                         "type": "string",

@@ -12,8 +12,8 @@ use Illuminate\Http\Request;
 /**
  *
  * @OA\Schema(type="object",schema="CarBody",
- * required={"name"},
  * @OA\Property(property="name",type="string",example="My Car"),
+ * @OA\Property(property="plate_number",type="string",example="BV 01 ABC"),
  * @OA\Property(property="category",type="string",example="Autoturism/Automobil mixt"),
  * @OA\Property(property="subcategory",type="string",example="Autoturism"),
  * @OA\Property(property="registration_type",type="string",example="Inmatriculat"),
@@ -220,6 +220,11 @@ class CarController extends Controller
         $user = $request->user();
 
         $this->checkResourceOwner($car, $user);
+
+        // Delete car related models
+        $car->images()->delete();
+        $car->documents()->delete();
+        $car->alerts()->delete();
 
         $car->delete();
 

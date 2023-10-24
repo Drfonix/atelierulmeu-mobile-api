@@ -39,7 +39,7 @@ use Illuminate\Http\Request;
  * @OA\Property(property="alert_date",type="string",example="2023-06-05"),
  * @OA\Property(property="recurrent",type="string",example="no"),
  * @OA\Property(property="meta_data",type="object"),
- * @OA\Property(property="price",type="decimal", exaple="10.5"),
+ * @OA\Property(property="price", type="integer", example="10.5"),
  * )
  *
  * Class AlertController

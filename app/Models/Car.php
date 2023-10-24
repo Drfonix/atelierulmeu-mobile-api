@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @OA\Schema(type="object",
  * @OA\Property(property="id",type="integer",example=1),
  * @OA\Property(property="name",type="string",example="My Car"),
+ * @OA\Property(property="plate_number",type="string",example="CJ 01 ABC"),
  * @OA\Property(property="category",type="string",example="Autoturism/Automobil mixt"),
  * @OA\Property(property="subcategory",type="string",example="Autoturism"),
  * @OA\Property(property="registration_type",type="string",example="Inmatriculat"),
@@ -41,6 +42,7 @@ class Car extends Model
      */
     protected $fillable = [
         'name',
+        'plate_number',
         'user_id',
         'category',
         'subcategory',
@@ -108,5 +110,15 @@ class Car extends Model
     public function documents()
     {
         return $this->hasMany(UserDocument::class, "car_id", "id");
+    }
+
+    /**
+     * Gets car alerts
+     *
+     * @return HasMany
+     */
+    public function alerts()
+    {
+        return $this->hasMany(Alert::class, "car_id", "id");
     }
 }
