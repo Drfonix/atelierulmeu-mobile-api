@@ -31,6 +31,7 @@ class RegistrationRequest extends FormRequest
     {
         return [
             "phone" => ["required", "string", new ValidPhoneNumber],
+            "device_token" => ["string", "nullable"]
         ];
     }
 }

@@ -37,6 +37,8 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
+        'device_token',
+        'meta_data'
     ];
 
     /**
@@ -47,6 +49,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'device_token',
     ];
 
     /**
@@ -58,6 +61,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        'meta_data' => 'json'
     ];
 
     /**
@@ -115,7 +119,7 @@ class User extends Authenticatable
     public function checkCarId($carId)
     {
         $car = $this->cars()->where('id', $carId)->first();
-        if($carId && !$car) {
+        if(!$car) {
             throw new UnauthorizedException("You are not the car owner");
         }
     }

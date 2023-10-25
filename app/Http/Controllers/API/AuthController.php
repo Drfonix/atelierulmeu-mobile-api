@@ -21,6 +21,7 @@ use Illuminate\Support\Str;
 /**
  * @OA\Schema(schema="RegisterBody",type="object",required={"phone"},
  * @OA\Property(property="phone", type="string", example="0741234567"),
+ * @OA\Property(property="device_token", type="string", example="8d5c4ff5-de64-43a8-80bd-bf81cddb0250"),
  * )
  *
  * @OA\Schema(schema="ValidateBody",type="object",required={"phone","code","type"},
@@ -119,6 +120,9 @@ class AuthController extends Controller
         $user = User::query()->where("phone", "=", $validated["phone"])->first();
         if(!$user) {
             $user = User::create($validated);
+        } else if(array_key_exists("device_token", $validated) && $user) {
+            $user->device_token = $validated["device_token"];
+            $user->save();
         }
 
         $authRequest = $this->checkOrCreateAuthRequest($validated["phone"], AuthRequest::TYPE_REGISTRATION, $user->id);
