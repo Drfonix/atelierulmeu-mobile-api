@@ -156,9 +156,9 @@ class UserController extends Controller
         $user = $request->user();
         $validated = $request->validated();
         $message = $this->firebaseService->createMessage($validated["device_token"], $validated);
-        $this->firebaseService->sendMessage($message);
-//        dd($user, $validated, $notification, $message);
+        $messageResponse = $this->firebaseService->sendMessage($message);
+//        dd($user, $validated, $message, $messageResponse);
 
-        return $this->successResponse([], "Notification sent successfully!");
+        return $this->successResponse($messageResponse, "Notification sent successfully!");
     }
 }
