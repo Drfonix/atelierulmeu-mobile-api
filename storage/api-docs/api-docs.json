@@ -908,6 +908,77 @@
                 ]
             }
         },
+        "/trigger-notification": {
+            "post": {
+                "tags": [
+                    "Device Notification"
+                ],
+                "summary": "Send notification to a device",
+                "description": "This is for testing. It will be removed from production",
+                "operationId": "1b6eac3b41a3bc6e152f9a02ff58ff2c",
+                "requestBody": {
+                    "description": "User fillable properties",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "device_token",
+                                    "title",
+                                    "body"
+                                ],
+                                "properties": {
+                                    "device_token": {
+                                        "type": "string",
+                                        "example": "UYKBSFSD562SDFSDF"
+                                    },
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Expired something"
+                                    },
+                                    "body": {
+                                        "type": "string",
+                                        "example": "This is the message , lorem ipsum blsDfsdfsjdfskdfsdf"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The updated user data response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": ""
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": []
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_Auth": []
+                    }
+                ]
+            }
+        },
         "/documents": {
             "get": {
                 "tags": [
@@ -1496,6 +1567,10 @@
                     "phone": {
                         "type": "string",
                         "example": "0741234567"
+                    },
+                    "device_token": {
+                        "type": "string",
+                        "example": "8d5c4ff5-de64-43a8-80bd-bf81cddb0250"
                     }
                 },
                 "type": "object"

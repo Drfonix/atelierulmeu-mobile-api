@@ -10,6 +10,7 @@ use App\Observers\CarObserver;
 use App\Observers\AlertObserver;
 use App\Services\AlertService;
 use App\Services\ImageService;
+use App\Services\FirebaseService;
 use App\Services\SmsService;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -32,6 +33,10 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(AlertService::class, function ($app) {
             return new AlertService();
+        });
+
+        $this->app->bind(FirebaseService::class, function ($app) {
+            return new FirebaseService();
         });
     }
 

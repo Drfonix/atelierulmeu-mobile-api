@@ -119,7 +119,11 @@ return [
             'path' => storage_path('logs/sms.log'),
             'level' => 'debug',
         ],
-
+        'firebase' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/firebase.log'),
+            'level' => 'debug',
+        ],
         'user' => [
             'driver' => 'single',
             'path' => storage_path('logs/user.log'),

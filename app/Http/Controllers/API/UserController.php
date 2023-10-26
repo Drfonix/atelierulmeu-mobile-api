@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DeviceNotificationRequest;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
+use App\Services\FirebaseService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Kreait\Firebase\Messaging\Notification;
 
 /**
  * @OA\Schema(schema="UpdateUserBody",type="object",
@@ -27,6 +30,16 @@ use Illuminate\Http\Request;
  */
 class UserController extends Controller
 {
+
+    /**
+     * @var FirebaseService
+     */
+    protected FirebaseService $firebaseService;
+
+    public function __construct(FirebaseService $firebaseService)
+    {
+        $this->firebaseService = $firebaseService;
+    }
 
     /**
      * @OA\Get(
@@ -107,5 +120,45 @@ class UserController extends Controller
         $user->delete();
 
         return $this->successResponse();
+    }
+
+    /**
+     * @OA\Post(
+     *     path="/trigger-notification",
+     *     summary="Send notification to a device",
+     *     description="This is for testing. It will be removed from production",
+     *      tags={"Device Notification"},
+     *     security={{"bearer_Auth":{}}},
+     *     @OA\RequestBody(
+     *       required=true,
+     *       description="User fillable properties",
+     *       @OA\JsonContent(required={"device_token", "title", "body"},
+     *          @OA\Property(property="device_token", type="string", example="UYKBSFSD562SDFSDF"),
+     *          @OA\Property(property="title", type="string", example="Expired something"),
+     *          @OA\Property(property="body", type="string", example="This is the message , lorem ipsum blsDfsdfsjdfskdfsdf"),
+     *     ),
+     *     ),
+     *     @OA\Response(
+     *      response="200",
+     *      description="The updated user data response.",
+     *      @OA\JsonContent(
+     *          @OA\Property(property="status", type="string", example="success"),
+     *          @OA\Property(property="message", type="string", example=""),
+     *          @OA\Property(property="data", type="object", example={}),
+     *     )
+     *     )
+     * )
+     * @param DeviceNotificationRequest $request
+     * @return JsonResponse
+     */
+    public function postSendNotification(DeviceNotificationRequest $request): JsonResponse
+    {
+        $user = $request->user();
+        $validated = $request->validated();
+        $message = $this->firebaseService->createMessage($validated["device_token"], $validated);
+        $this->firebaseService->sendMessage($message);
+//        dd($user, $validated, $notification, $message);
+
+        return $this->successResponse([], "Notification sent successfully!");
     }
 }

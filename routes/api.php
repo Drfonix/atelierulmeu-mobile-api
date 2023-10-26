@@ -66,6 +66,7 @@ Route::prefix('/v1')->group(function() {
 
 
             Route::get('/calendar', 'App\Http\Controllers\API\CalendarController@getCalendarData');
+            Route::post('/trigger-notification', 'App\Http\Controllers\API\UserController@postSendNotification');
         });
     });
 });
