@@ -58,7 +58,10 @@ class FirebaseService
             $message = CloudMessage::fromArray([
                 "token" => $token,
                 "name" => 'Test',
-                "data" => [],
+                "data" => [
+                    "title" => $data["title"],
+                    "body" => $data["body"],
+                ],
                 "notification" => $notificationObject,
 //            "android" => [],
 //            "webpush" => [],
