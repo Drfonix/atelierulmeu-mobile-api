@@ -136,6 +136,8 @@ class UserController extends Controller
      *          @OA\Property(property="device_token", type="string", example="UYKBSFSD562SDFSDF"),
      *          @OA\Property(property="title", type="string", example="Expired something"),
      *          @OA\Property(property="body", type="string", example="This is the message , lorem ipsum blsDfsdfsjdfskdfsdf"),
+     *          @OA\Property(property="event_id", type="integer", example="9"),
+     *          @OA\Property(property="car_id", type="integer", example="10"),
      *     ),
      *     ),
      *     @OA\Response(
@@ -155,9 +157,14 @@ class UserController extends Controller
     {
         $user = $request->user();
         $validated = $request->validated();
-        $message = $this->firebaseService->createMessage($validated["device_token"], $validated);
+        $payloadData = [
+            'event_id' => $validated["event_id"],
+            'car_id' => $validated["car_id"],
+            'title' => $validated["title"],
+            'body' => $validated["body"],
+        ];
+        $message = $this->firebaseService->createMessage($validated["device_token"], $validated, $payloadData);
         $messageResponse = $this->firebaseService->sendMessage($message);
-//        dd($user, $validated, $message, $messageResponse);
 
         return $this->successResponse($messageResponse, "Notification sent successfully!");
     }

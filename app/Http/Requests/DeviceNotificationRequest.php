@@ -27,6 +27,8 @@ class DeviceNotificationRequest extends FormRequest
             'device_token' => ['required', 'string'],
             'title' => ['required', 'string'],
             'body' => ['required', 'string'],
+            'event_id' => ['integer'],
+            'car_id' => ['integer'],
         ];
     }
 }
