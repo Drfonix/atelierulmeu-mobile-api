@@ -4,7 +4,7 @@ if (!function_exists('generate_alert_notification_data')) {
 
     function generate_alert_notification_data(\App\Models\Alert $alert)
     {
-        $formattedDate = $alert->alert_date->format('Y-m-d');
+        $formattedDate = $alert->alert_date;
 
         return [
             "token" => $alert->user->device_token,
