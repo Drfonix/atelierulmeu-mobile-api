@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\HigherOrderBuilderProxy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -120,5 +121,20 @@ class Car extends Model
     public function alerts()
     {
         return $this->hasMany(Alert::class, "car_id", "id");
+    }
+
+    /**
+     * @return integer|null
+     */
+    public function getCarFavoriteImageId()
+    {
+        $favoriteImage = $this->images()->firstWhere('favorite', '=', 1);
+        if($favoriteImage) {
+            return $favoriteImage->id;
+        }
+
+        $firstImage = $this->images()->first();
+
+        return $firstImage->id ?? null;
     }
 }

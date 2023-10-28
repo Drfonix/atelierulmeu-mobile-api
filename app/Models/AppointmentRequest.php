@@ -53,15 +53,6 @@ class AppointmentRequest extends Model
     ];
 
     /**
-     * The attributes that should be mutated to dates.
-     *
-     * @var array
-     */
-    protected $dates = [
-        'created_at', 'updated_at', 'from', 'to'
-    ];
-
-    /**
      * The attributes that should be cast to native types.
      *
      * @var array
@@ -70,8 +61,6 @@ class AppointmentRequest extends Model
         'user_id' => 'integer',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'from' => 'datetime',
-        'to' => 'datetime',
         'duration' => 'double',
         'requested_services' => 'array',
         'meta_data' => 'json',

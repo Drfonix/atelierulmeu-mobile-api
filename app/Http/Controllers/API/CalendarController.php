@@ -50,7 +50,7 @@ class CalendarController extends Controller
     public function getCalendarData(Request $request)
     {
         $user = $request->user();
-        $alerts = $user->alerts()->whereHas('car')->with("car")->get();
+        $alerts = $user->alerts()->with(["car", "car.images"])->whereHas('car')->get();
         $appointments = $user->appointments()->where("from","!=", "NULL")->get();
 
         $eventsCollection = CalendarEventResource::collection(new CalendarEventResource($alerts));

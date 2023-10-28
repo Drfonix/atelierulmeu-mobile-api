@@ -25,6 +25,9 @@ class CalendarEventResource extends JsonResource
             "status" => $this->status,
             "car_plate_number" => $this->car->plate_number,
             "car_make_model" => $this->getCarMakeModel($this->car),
+            "car_id" => $this->car->id,
+            "car_category" => $this->car->category,
+            "car_image_id" => $this->car->getCarFavoriteImageId(),
             "date" => $this->alert_date,
         ];
     }

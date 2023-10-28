@@ -25,9 +25,12 @@ class CalendarAppointmentResource extends JsonResource
             "status" => $this->status,
             "car_plate_number" => $this->car_plate_number,
             "car_make_model" => $this->car_make_model,
+            "car_id" => $this->car ? $this->car->id : null,
+            "car_category" => $this->car ? $this->car->category : null,
+            "car_image_id" => $this->car ? $this->car->getCarFavoriteImageId() : null,
             "date" => $this->from,
-            "from" => $this->from,
-            "to" => $this->to,
+//            "from" => $this->from,
+//            "to" => $this->to,
         ];
     }
 }
