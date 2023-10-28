@@ -51,13 +51,14 @@ class FirebaseService
         $message =  null;
         $notificationObject = FirebaseNotification::fromArray([
             "title" => $notData["title"],
-            "body" => $notData["body"]
+            "body" => $notData["body"],
+            "event_id" => $notData["event_id"]
         ]);
 
         if($token) {
             $message = CloudMessage::fromArray([
                 "token" => $token,
-                "name" => 'Test',
+                "name" => 'VehiGo Notification',
                 "data" => $data,
                 "notification" => $notificationObject,
 //            "android" => [],

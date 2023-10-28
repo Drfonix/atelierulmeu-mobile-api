@@ -10,6 +10,7 @@ if (!function_exists('generate_alert_notification_data')) {
             "token" => $alert->user->device_token,
             "title" => generate_alert_title($alert->type),
             "body" => generate_alert_body($alert->car, $alert->type, $formattedDate),
+            "event_id" => $alert->id
         ];
     }
 }
