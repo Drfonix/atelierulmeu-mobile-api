@@ -49,10 +49,10 @@ class SendUserEventNotificationJob implements ShouldQueue
     {
         $this->firebaseService = new FirebaseService();
         $weekPlus = Carbon::now()->addWeek()->startOfDay();
-        $threeDaysPlus = Carbon::now()->addDays(3)->startOfDay();
+//        $threeDaysPlus = Carbon::now()->addDays(3)->startOfDay();
 
-        $daysPlusQuery = $this->getAlertsByDate($threeDaysPlus);
-        $this->sendNotificationsByQuery($daysPlusQuery);
+//        $daysPlusQuery = $this->getAlertsByDate($threeDaysPlus);
+//        $this->sendNotificationsByQuery($daysPlusQuery);
 
         $weekPlusQuery = $this->getAlertsByDate($weekPlus);
         $this->sendNotificationsByQuery($weekPlusQuery);
@@ -67,6 +67,7 @@ class SendUserEventNotificationJob implements ShouldQueue
     {
         $now = Carbon::now()->startOfDay();
         $query = Alert::query()->with(["user", "car"])
+            ->where('status', '=', Alert::STATUS_ACTIVE)
             ->whereHas('user', function ($q){
                 $q->whereNotNULL('users.device_token');
             })
@@ -86,7 +87,13 @@ class SendUserEventNotificationJob implements ShouldQueue
             $messages = [];
             foreach ($alerts as $alert) {
                 $notificationData = generate_alert_notification_data($alert);
-                $message = $this->firebaseService->createMessage($notificationData["token"], $notificationData);
+                $payloadData = [
+                    'event_id' => $alert->id,
+                    'car_id' => $alert->car->id,
+                    'title' => $notificationData['title'],
+                    'body' => $notificationData['body'],
+                ];
+                $message = $this->firebaseService->createMessage($notificationData["token"], $notificationData, $payloadData);
                 $messages[] = $message;
             }
             $this->firebaseService->sendMessage($messages, true);

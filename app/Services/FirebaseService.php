@@ -46,22 +46,19 @@ class FirebaseService
     }
 
 
-    public function createMessage($token, $data)
+    public function createMessage($token, $notData, $data = [])
     {
         $message =  null;
         $notificationObject = FirebaseNotification::fromArray([
-            "title" => $data["title"],
-            "body" => $data["body"]
+            "title" => $notData["title"],
+            "body" => $notData["body"]
         ]);
 
         if($token) {
             $message = CloudMessage::fromArray([
                 "token" => $token,
                 "name" => 'Test',
-                "data" => [
-                    "title" => $data["title"],
-                    "body" => $data["body"],
-                ],
+                "data" => $data,
                 "notification" => $notificationObject,
 //            "android" => [],
 //            "webpush" => [],
