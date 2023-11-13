@@ -122,30 +122,36 @@ class ImageService
      * Delete the user image object and file
      *
      * @param UserImage $userImage
+     * @param bool $justFile
      */
-    public function deleteUserImage(UserImage $userImage)
+    public function deleteUserImage(UserImage $userImage, $justFile = false)
     {
         $imagePath = get_image_paths($userImage);
 
         if(File::exists($imagePath["file"])) {
             Storage::disk(self::DISK)->delete($imagePath["image"]);
         }
-        $userImage->delete();
+        if(!$justFile) {
+            $userImage->delete();
+        }
     }
 
     /**
      * Delete the user image object and file
      *
      * @param UserDocument $userDocument
+     * @param bool $justFile
      */
-    public function deleteUserDocument(UserDocument $userDocument)
+    public function deleteUserDocument(UserDocument $userDocument, $justFile = false)
     {
         $imagePath = get_image_paths($userDocument);
 
         if(File::exists($imagePath["file"])) {
             Storage::disk(self::DISK)->delete($imagePath["image"]);
         }
-        $userDocument->delete();
+        if(!$justFile) {
+            $userDocument->delete();
+        }
     }
 
     /**

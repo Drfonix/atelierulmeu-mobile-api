@@ -939,6 +939,14 @@
                                     "body": {
                                         "type": "string",
                                         "example": "This is the message , lorem ipsum blsDfsdfsjdfskdfsdf"
+                                    },
+                                    "event_id": {
+                                        "type": "integer",
+                                        "example": "9"
+                                    },
+                                    "car_id": {
+                                        "type": "integer",
+                                        "example": "10"
                                     }
                                 },
                                 "type": "object"

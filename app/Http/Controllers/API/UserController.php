@@ -7,6 +7,7 @@ use App\Http\Requests\DeviceNotificationRequest;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Services\FirebaseService;
+use App\Services\UserService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Kreait\Firebase\Messaging\Notification;
@@ -36,9 +37,21 @@ class UserController extends Controller
      */
     protected FirebaseService $firebaseService;
 
-    public function __construct(FirebaseService $firebaseService)
+    /**
+     * @var UserService
+     */
+    protected UserService $userService;
+
+    /**
+     * UserController constructor.
+     * @param FirebaseService $firebaseService
+     * @param UserService $userService
+     */
+    public function __construct(FirebaseService $firebaseService, UserService $userService)
     {
         $this->firebaseService = $firebaseService;
+        $this->userService = $userService;
+
     }
 
     /**
@@ -117,7 +130,7 @@ class UserController extends Controller
     {
         $user = $request->user();
         $user->tokens()->delete();
-        $user->delete();
+        $this->userService->deleteUserWithAllData($user);
 
         return $this->successResponse();
     }
