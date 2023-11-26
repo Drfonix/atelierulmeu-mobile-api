@@ -39,7 +39,6 @@ class FirebaseService
             }
         } catch (\Exception $exception) {
             Log::channel("firebase")->error(sprintf("Error sending notification: Message: %s",json_encode($message, JSON_THROW_ON_ERROR)));
-//            dd($message, $messageResp);
         }
         return $messageResp;
 
