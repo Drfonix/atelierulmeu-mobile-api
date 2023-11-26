@@ -12,11 +12,13 @@ use App\Models\CarMake;
 use App\Models\CarModel;
 use App\Models\CarRegistrationType;
 use App\Models\CarSubCategory;
+use App\Models\DefaultSelect;
 use App\Models\DocumentType;
 use App\Models\RecurrentType;
 use App\Services\ImageService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 /**
  *
@@ -70,11 +72,45 @@ class GeneralController extends Controller
      */
     public function getInformation(Request $request): JsonResponse
     {
-        $carMakes = CarMake::query()->select("id","name")->get();
-        $carModels = CarModel::query()->select("make_id","name")->get();
-
         $user = $request->user();
-        $generalAlertTypes = AlertType::all()->pluck('name');
+
+        $carMakes = Cache::remember('car-make', 604800, static function(){
+           return CarMake::query()->select("id","name")->get();
+        });
+        $carModels = Cache::remember('car-model', 604800, static function(){
+            return CarModel::query()->select("make_id","name")->get();
+        });
+        $generalAlertTypes =  Cache::remember('alert-types', 604800,static function(){
+            return AlertType::all()->pluck('name');
+        });
+
+        $carRegistrationTypes =  Cache::remember('car-reg-types', 604800,static function(){
+            return CarRegistrationType::all()->pluck('name');
+        });
+
+        $carFuelTypes =  Cache::remember('car-fuel-types', 604800,static function(){
+            return CarFuelType::all()->pluck('name');
+        });
+
+        $documentTypes =  Cache::remember('document-types', 604800, static function(){
+            return DocumentType::all()->pluck('name');
+        });
+
+        $carCategories =  Cache::remember('car-categories', 604800, static function(){
+            return CarCategory::all();
+        });
+
+        $carSubCategories =  Cache::remember('car-sub-categories', 604800, static function(){
+            return CarSubCategory::all();
+        });
+
+        $recurrentTypes =  Cache::remember('recurrent-types', 604800, static function(){
+            return RecurrentType::all();
+        });
+
+        $defaultSelects =  Cache::remember('default-selects', 604800, static function(){
+            return DefaultSelect::all()->pluck("value", "key");
+        });
 
         $userCustomAlertTypes = Alert::query()->where('user_id', $user->id)
             ->distinct()->pluck('type');
@@ -82,14 +118,15 @@ class GeneralController extends Controller
         $alertTypes = $generalAlertTypes->merge($userCustomAlertTypes)->unique()->sort()->values();
 
         $response = [
+            "default_selects" => $defaultSelects,
             "appointment_statuses" => AppointmentRequest::STATUS,
-            "car_registration_types" => CarRegistrationType::all()->pluck('name'),
-            "car_fuel_types" => CarFuelType::all()->pluck('name'),
+            "car_registration_types" => $carRegistrationTypes,
+            "car_fuel_types" => $carFuelTypes,
             "alert_types" => $alertTypes,
-            "document_types" => DocumentType::all()->pluck('name'),
-            "car_categories" => CarCategory::all(),
-            "car_sub_categories" => CarSubCategory::all(),
-            "recurrent_types" => RecurrentType::all(),
+            "document_types" => $documentTypes,
+            "car_categories" => $carCategories,
+            "car_sub_categories" => $carSubCategories,
+            "recurrent_types" => $recurrentTypes,
             "car_makes" => $carMakes,
             "car_models" => $carModels,
         ];
