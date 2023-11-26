@@ -14,6 +14,7 @@ use App\Models\CarRegistrationType;
 use App\Models\CarSubCategory;
 use App\Models\DefaultSelect;
 use App\Models\DocumentType;
+use App\Models\MobileAppData;
 use App\Models\RecurrentType;
 use App\Services\ImageService;
 use Illuminate\Http\JsonResponse;
@@ -112,12 +113,15 @@ class GeneralController extends Controller
             return DefaultSelect::all()->pluck("value", "key");
         });
 
+        $desiredAppVersion = MobileAppData::where("key", "desired_app_version")->pluck("value");
+
         $userCustomAlertTypes = Alert::query()->where('user_id', $user->id)
             ->distinct()->pluck('type');
 
         $alertTypes = $generalAlertTypes->merge($userCustomAlertTypes)->unique()->sort()->values();
 
         $response = [
+            "desired_app_version" => $desiredAppVersion[0] ?? null,
             "default_selects" => $defaultSelects,
             "appointment_statuses" => AppointmentRequest::STATUS,
             "car_registration_types" => $carRegistrationTypes,
