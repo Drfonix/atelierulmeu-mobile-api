@@ -17,7 +17,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command("check:user-events")->dailyAt("07:00");
-        $schedule->command("check:user-appointments")->everyFourHours();
+//        $schedule->command("check:user-appointments")->everyFourHours();
     }
 
     /**

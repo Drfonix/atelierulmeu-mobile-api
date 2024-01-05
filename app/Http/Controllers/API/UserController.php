@@ -177,7 +177,7 @@ class UserController extends Controller
             'body' => $validated["body"],
         ];
         $message = $this->firebaseService->createMessage($validated["device_token"], $validated, $payloadData);
-        $messageResponse = $this->firebaseService->sendMessage($message);
+        $messageResponse = $this->firebaseService->sendMessage([$message], true);
 
         return $this->successResponse($messageResponse, "Notification sent successfully!");
     }
